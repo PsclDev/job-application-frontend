@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue'
-import LoadingIcon from '@/components/common/buttons/LoadingIcon.vue'
+import { PropType, defineComponent } from 'vue';
+import LoadingIcon from '@/components/common/buttons/LoadingIcon.vue';
 
-type ButtonType = 'button' | 'submit' | 'reset' | undefined
+type ButtonType = 'button' | 'submit' | 'reset' | undefined;
 
 export default defineComponent({
   components: {
@@ -72,10 +72,10 @@ export default defineComponent({
   },
   methods: {
     focus() {
-      this.$refs.button?.focus()
+      this.$refs.button?.focus();
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

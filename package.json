@@ -1,12 +1,18 @@
 {
   "name": "vue3-project",
   "version": "0.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "serve": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.1",
@@ -26,6 +32,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash-es": "^4.17.5",
@@ -34,6 +42,8 @@
     "autoprefixer": "^10.4.7",
     "eslint": "^8.19.0",
     "eslint-plugin-vue": "^9.1.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.14",
     "sass": "^1.52.1",
     "sass-loader": "^12.6.0",
@@ -45,8 +55,5 @@
     "vite-plugin-pages": "^0.18.2",
     "vite-plugin-vue-layouts": "^0.6.0",
     "vue-tsc": "^0.3.0"
-  },
-  "engines": {
-    "node": ">=16"
   }
 }

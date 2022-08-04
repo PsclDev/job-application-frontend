@@ -1,0 +1,6 @@
+{
+  "**/*.{ts,js,json}": [
+    "eslint --fix .",
+    "eslint --ext \".js,.ts\" --ignore-path .gitignore ."
+  ]
+}

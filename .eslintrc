@@ -7,6 +7,7 @@
     "@typescript-eslint/consistent-type-imports": "off",
     "@typescript-eslint/brace-style": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/semi": ["error", "always"],
     "vue/no-deprecated-slot-attribute": "off",
     "vue/no-reserved-component-names": "off",
     "vue/component-tags-order": "off",
@@ -16,6 +17,11 @@
     "curly": [
       "error",
       "all"
+    ],
+    "semi": "off",
+    "eol-last": [
+      "error",
+      "always"
     ],
     "brace-style": ["error", "1tbs", { "allowSingleLine": false }]
   }

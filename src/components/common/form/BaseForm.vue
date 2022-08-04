@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-defineEmits(['submit'])
+defineEmits(['submit']);
 </script>
 
 <style scoped lang="postcss">

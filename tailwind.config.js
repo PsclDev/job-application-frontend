@@ -21,4 +21,4 @@ module.exports = {
       strategy: 'class', // only generate classes
     }),
   ],
-}
+};

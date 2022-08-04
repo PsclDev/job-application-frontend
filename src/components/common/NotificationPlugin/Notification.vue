@@ -88,8 +88,8 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue'
-import { NotificationType } from './index'
+import { PropType, defineComponent } from 'vue';
+import { NotificationType } from './index';
 
 export default defineComponent({
   name: 'Notification',
@@ -101,16 +101,16 @@ export default defineComponent({
       type: String,
       default: 'top',
       validator: (value: string) => {
-        const acceptedValues = ['top', 'bottom']
-        return acceptedValues.includes(value)
+        const acceptedValues = ['top', 'bottom'];
+        return acceptedValues.includes(value);
       },
     },
     horizontalAlign: {
       type: String,
       default: 'right',
       validator: (value: string) => {
-        const acceptedValues = ['left', 'center', 'right']
-        return acceptedValues.includes(value)
+        const acceptedValues = ['left', 'center', 'right'];
+        return acceptedValues.includes(value);
       },
     },
     type: {
@@ -121,7 +121,7 @@ export default defineComponent({
       type: Number,
       default: 5000,
       validator: (value: number) => {
-        return value >= 0
+        return value >= 0;
       },
     },
     timestamp: {
@@ -146,65 +146,65 @@ export default defineComponent({
     return {
       elmHeight: 0,
       showNotification: true,
-    }
+    };
   },
   computed: {
     hasIcon() {
-      return this.icon && this.icon.length > 0
+      return this.icon && this.icon.length > 0;
     },
     alertType() {
-      return `notification-${this.type}`
+      return `notification-${this.type}`;
     },
     customPosition() {
-      const initialMargin = 20
-      const alertHeight = this.elmHeight + 10
+      const initialMargin = 20;
+      const alertHeight = this.elmHeight + 10;
       let sameAlertsCount = this.$notifications.state.filter((alert) => {
         return (
           alert.horizontalAlign === this.horizontalAlign
           && alert.verticalAlign === this.verticalAlign
           && alert.timestamp && alert.timestamp <= this.timestamp
-        )
-      }).length
+        );
+      }).length;
       if (this.$notifications.settings.overlap) {
-        sameAlertsCount = 1
+        sameAlertsCount = 1;
       }
 
-      const pixels = (sameAlertsCount - 1) * alertHeight + initialMargin
-      const styles: any = {}
+      const pixels = (sameAlertsCount - 1) * alertHeight + initialMargin;
+      const styles: any = {};
       if (this.verticalAlign === 'top') {
-        styles.top = `${pixels}px`
+        styles.top = `${pixels}px`;
       } else {
-        styles.bottom = `${pixels}px`
+        styles.bottom = `${pixels}px`;
       }
 
-      return styles
+      return styles;
     },
   },
   mounted() {
-    this.elmHeight = this.$el.clientHeight
+    this.elmHeight = this.$el.clientHeight;
     if (this.timeout) {
-      setTimeout(this.close, this.timeout)
+      setTimeout(this.close, this.timeout);
     }
   },
   methods: {
     close() {
-      this.showNotification = false
+      this.showNotification = false;
       // We need this for leave transitions to work
       setTimeout(() => {
-        this.$emit('close', this.timestamp)
-      }, 500)
+        this.$emit('close', this.timestamp);
+      }, 500);
     },
     tryClose(evt: Event) {
       if (this.clickHandler) {
-        this.clickHandler(evt, this)
+        this.clickHandler(evt, this);
       }
 
       if (this.closeOnClick) {
-        this.close()
+        this.close();
       }
     },
   },
-})
+});
 </script>
 
 <style lang="scss">

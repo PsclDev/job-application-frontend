@@ -32,16 +32,16 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { error } from '@/components/common/NotificationPlugin'
+import { reactive } from 'vue';
+import { error } from '@/components/common/NotificationPlugin';
 
 const model = reactive({
   email: '',
   password: '',
-})
+});
 
 function onSubmit() {
-  error('Login not implemented yet')
+  error('Login not implemented yet');
 }
 </script>
 

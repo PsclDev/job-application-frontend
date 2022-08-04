@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Notification from './Notification.vue'
-import { Notification as NotificationType } from './index'
+import { defineComponent } from 'vue';
+import Notification from './Notification.vue';
+import { Notification as NotificationType } from './index';
 
 export default defineComponent({
   components: {
@@ -41,31 +41,31 @@ export default defineComponent({
   data() {
     return {
       notifications: this.$notifications?.state || [],
-    }
+    };
   },
   watch: {
     overlap(newVal: boolean) {
-      this.$notifications.settings.overlap = newVal
+      this.$notifications.settings.overlap = newVal;
     },
   },
   created() {
     if (this.$notifications) {
-      this.$notifications.settings.overlap = this.overlap
+      this.$notifications.settings.overlap = this.overlap;
     }
   },
   methods: {
     notificationKey(notification: NotificationType, index: number) {
       if (notification.timestamp && notification.timestamp instanceof Date) {
-        return notification.timestamp.getTime()
+        return notification.timestamp.getTime();
       }
 
-      return index
+      return index;
     },
     removeNotification(timestamp: number) {
-      this.$notifications.removeNotification(timestamp)
+      this.$notifications.removeNotification(timestamp);
     },
   },
-})
+});
 </script>
 
 <style lang="scss">

@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { LoaderIcon } from '@zhuowenli/vue-feather-icons'
-import { defineComponent } from 'vue'
+import { LoaderIcon } from '@zhuowenli/vue-feather-icons';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
@@ -23,7 +23,7 @@ export default defineComponent({
       default: 'md',
     },
   },
-})
+});
 </script>
 
 <style>
