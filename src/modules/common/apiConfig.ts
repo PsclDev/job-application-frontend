@@ -4,22 +4,15 @@ import { NotificationType, notifications, notify } from '@/components/common/Not
 import { isForbidden, isInternalServerError, isUnauthorized, mapErrors } from '@/modules/common/utils/requestUtils';
 
 export const statusCodesToHandle = [400, 401, 422];
-const TOKEN_KEY = 'token';
 
 axios.defaults.baseURL = API_URL;
 
 export function requestInterceptor(config: AxiosRequestConfig): AxiosRequestConfig {
-  const token = localStorage.getItem(TOKEN_KEY);
-
   if (!config.headers) {
     config.headers = {};
   }
 
   config.headers.Accept = 'application/vnd.api+json';
-
-  if (!config.headers.Authorization && token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
 
   return config;
 }

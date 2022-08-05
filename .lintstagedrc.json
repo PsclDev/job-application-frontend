@@ -1,6 +1,6 @@
 {
-  "**/*.{ts,js,json}": [
+  "**/*.{ts,js,vue,json}": [
     "eslint --fix .",
-    "eslint --ext \".js,.ts\" --ignore-path .gitignore ."
+    "eslint --ext \".js,.ts,.vue,.json\" ."
   ]
 }
