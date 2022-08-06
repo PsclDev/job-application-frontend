@@ -6,7 +6,9 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BaseButton: typeof import('./src/components/common/buttons/BaseButton.vue')['default']
+    BaseDeleteModal: typeof import('./src/components/common/modals/BaseDeleteModal.vue')['default']
     BaseForm: typeof import('./src/components/common/form/BaseForm.vue')['default']
+    BaseModal: typeof import('./src/components/common/modals/BaseModal.vue')['default']
     LoadingIcon: typeof import('./src/components/common/buttons/LoadingIcon.vue')['default']
     Notification: typeof import('./src/components/common/NotificationPlugin/Notification.vue')['default']
     Notifications: typeof import('./src/components/common/NotificationPlugin/Notifications.vue')['default']
