@@ -1,26 +1,39 @@
 {
   "common": {
     "create": "Create",
+    "update": "Update",
     "edit": "Edit",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "showArchived": "Show Archived",
+    "archive": "Archive",
+    "unarchive": "Unarchive"
   },
-  "pages": {
-    "groups": {
-      "overview": "All Groups"
-    }
-  },
-  "views": {
+  "modules": {
     "group": {
-      "archive": "Archive",
-      "unarchive": "Unarchive",
-      "delete": "Delete",
-      "allApplications": "View all applications",
+      "pages": {
+        "groups": {
+          "overview": "All Groups",
+          "create": "Create new group"
+        }
+      },
+      "components": {
+        "groupcard": {
+          "allApplications": "View all applications"
+        }
+      },
+      "form": {
+        "name": "Name",
+        "description": "Description"
+      },
       "modals": {
         "create": {
-          "title": "Create a new Group",
-          "name": "Name",
-          "description": "Description"
+          "title": "Create a new group",
+          "submit": "Create new group"
+        },
+        "edit": {
+          "title": "Edit existing group",
+          "submit": "Save changes"
         },
         "delete": {
           "title": "Delete Group",

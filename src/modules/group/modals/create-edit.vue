@@ -1,0 +1,83 @@
+<template>
+  <BaseModal :show-modal="modelValue" @show-modal="hideModal">
+    <template #title>
+      {{ mode === FormMode.CREATE ? $t('modules.group.modals.create.title') : $t('modules.group.modals.edit.title') }}
+    </template>
+    <template #body>
+      <BaseForm
+        :submit-label="mode === FormMode.CREATE ? $t('common.create') : $t('common.update')"
+        @submit="onSubmit"
+      >
+        <FormKit
+          v-model="model.name"
+          type="text"
+          :label="$t('modules.group.form.name')"
+          validation="required"
+          minlength="3"
+          maxlength="50"
+          validation-visibility="dirty"
+        />
+
+        <FormKit
+          v-model="model.description"
+          type="text"
+          :label="$t('modules.group.form.description')"
+          maxlength="155"
+          validation-visibility="dirty"
+        />
+      </BaseForm>
+    </template>
+  </BaseModal>
+</template>
+
+<script lang="ts" setup>
+import { PropType, defineProps, reactive, toRefs } from 'vue';
+import { FormMode } from '../../common/types/form-mode';
+import { useGroupStore } from '../store/groupStore';
+import { CreateGroupInterface } from '../types/create-group.interface';
+
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    required: true,
+  },
+  mode: {
+    type: String as PropType<FormMode>,
+    default: 'CREATE',
+  },
+  id: {
+    type: String,
+    default: '',
+  },
+});
+
+const emit = defineEmits(['update:modelValue']);
+const { modelValue, mode, id } = toRefs(props);
+
+function hideModal(value: Boolean = true) {
+  emit('update:modelValue', !value);
+}
+
+const model: CreateGroupInterface = reactive({
+  name: '',
+  description: '',
+});
+
+const { createGroup, groupById, updateGroup } = useGroupStore();
+
+if (mode.value === FormMode.EDIT) {
+  const group = await groupById(id.value);
+  model.name = group!.name;
+  model.description = group!.description;
+}
+
+function onSubmit() {
+  if (mode.value === FormMode.CREATE) {
+    createGroup(model);
+  }
+  if (mode.value === FormMode.EDIT) {
+    updateGroup(id.value, model);
+  }
+  hideModal();
+}
+</script>

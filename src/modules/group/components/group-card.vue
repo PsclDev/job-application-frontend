@@ -1,0 +1,80 @@
+<template>
+  <div
+    class="relative p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md"
+    :class="group.isArchived ? 'bg-gray-100' : ''"
+  >
+    <h5 class="mb-2 text-2xl font-bold text-ellipsis overflow-hidden tracking-tight text-gray-900 pr-9">
+      {{ group.name }}
+    </h5>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      {{ group.description }}
+    </p>
+    <a class="inline-flex items-center cursor-pointer py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" @click="openApplications">
+      {{ $t('modules.group.components.groupcard.allApplications') }}
+      <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+    </a>
+
+    <div class="absolute top-4 right-3">
+      <div class="dropdown inline-block relative">
+        <button class="py-2 px-3">
+          <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <circle cx="8" cy="2.5" r=".75" />
+            <circle cx="8" cy="8" r=".75" />
+            <circle cx="8" cy="13.5" r=".75" />
+          </svg>
+        </button>
+
+        <ul class="dropdown-menu cursor-pointer absolute hidden text-gray-700 pt-2 z-50">
+          <li>
+            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" @click="showEditModal = true">{{ $t('common.edit') }}</a>
+          </li>
+          <li v-if="group.isArchived">
+            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" @click="unarchiveGroup(group.id)">{{ $t('common.unarchive') }}</a>
+          </li>
+          <li v-else>
+            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" @click="archiveGroup(group.id)">{{ $t('common.archive') }}</a>
+          </li>
+          <li>
+            <a class="rounded-t text-white bg-red-400 hover:bg-red-600 py-2 px-4 block whitespace-no-wrap" @click="showDeleteModal = true">{{ $t('common.delete') }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <BaseDeleteModal v-model="showDeleteModal" title="modules.group.modals.delete.title" description="modules.group.modals.delete.description" @deleted="deleteGroup(group.id)" />
+
+  <Suspense>
+    <CreateEditModal :id="group.id" v-model="showEditModal" :mode="FormMode.EDIT" />
+  </Suspense>
+</template>
+
+<script lang="ts" setup>
+import { GroupInterface } from '@shared/types';
+import { PropType, ref, toRefs } from 'vue';
+import { useGroupStore } from '../store/groupStore';
+import CreateEditModal from '../modals/create-edit.vue';
+import { FormMode } from '../../common/types/form-mode';
+
+const props = defineProps({
+  group: {
+    type: Object as PropType<GroupInterface>,
+    required: true,
+  },
+});
+
+const { group } = toRefs(props);
+const showDeleteModal = ref(false);
+const showEditModal = ref(false);
+const { archiveGroup, deleteGroup, unarchiveGroup } = useGroupStore();
+
+function openApplications() {
+  console.log('open applications of group', group.value.id);
+}
+</script>
+
+<style>
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+</style>

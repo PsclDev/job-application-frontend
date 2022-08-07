@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupLayouts } from 'virtual:generated-layouts';
 import generatedRoutes from 'virtual:generated-pages';
+import { Logger } from '@/modules/common/utils/logger';
 
+const logger = new Logger('Router');
 const routes = setupLayouts(generatedRoutes);
+logger.info('Routes: ', routes);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
