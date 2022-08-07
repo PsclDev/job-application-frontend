@@ -11,17 +11,13 @@
     </p>
     <a class="inline-flex items-center cursor-pointer py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" @click="openApplications">
       {{ $t('modules.group.components.groupcard.allApplications') }}
-      <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+      <ArrowRightIcon size="1.5x" class="ml-2 -mr-1 w-4 h-4" />
     </a>
 
     <div class="absolute top-4 right-3">
       <div class="dropdown inline-block relative">
         <button class="py-2 px-3">
-          <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-            <circle cx="8" cy="2.5" r=".75" />
-            <circle cx="8" cy="8" r=".75" />
-            <circle cx="8" cy="13.5" r=".75" />
-          </svg>
+          <MoreVerticalIcon size="1.25x" />
         </button>
 
         <ul class="dropdown-menu cursor-pointer absolute hidden text-gray-700 pt-2 z-50">
@@ -52,6 +48,7 @@
 <script lang="ts" setup>
 import { GroupInterface } from '@shared/types';
 import { PropType, ref, toRefs } from 'vue';
+import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
 import { useGroupStore } from '../store/groupStore';
 import CreateEditModal from '../modals/create-edit.vue';
 import { FormMode } from '../../common/types/form-mode';

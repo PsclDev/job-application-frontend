@@ -66,7 +66,7 @@ const model: CreateGroupInterface = reactive({
 const { createGroup, groupById, updateGroup } = useGroupStore();
 
 if (mode.value === FormMode.EDIT) {
-  const group = await groupById(id.value);
+  const group = groupById(id.value);
   model.name = group!.name;
   model.description = group!.description;
 }
