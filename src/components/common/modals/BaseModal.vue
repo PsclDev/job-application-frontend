@@ -15,7 +15,7 @@
             <slot name="body" />
           </div>
 
-          <div class="grid place-items-end bg-gray-200 px-4 py-3">
+          <div class="grid place-items-end bg-gray-200 px-4 py-3" :class="hideActions ? 'hidden' : ''">
             <slot name="actions" />
           </div>
         </div>
@@ -31,6 +31,10 @@ const props = defineProps({
   showModal: {
     type: Boolean,
     required: true,
+  },
+  hideActions: {
+    type: Boolean,
+    default: false,
   },
 });
 
