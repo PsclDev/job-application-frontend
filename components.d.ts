@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     Notifications: typeof import('./src/components/common/NotificationPlugin/Notifications.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheBreadcrumbs: typeof import('./src/components/common/breadcrumbs/TheBreadcrumbs.vue')['default']
   }
 }
 
