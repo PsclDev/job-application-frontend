@@ -9,8 +9,8 @@
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
       {{ group.description }}
     </p>
-    <a class="inline-flex items-center cursor-pointer py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" @click="openApplications">
-      {{ $t('modules.group.components.groupcard.allApplications') }}
+    <a class="inline-flex items-center cursor-pointer py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" @click="enterGroup">
+      {{ $t('modules.group.components.groupcard.enter') }}
       <ArrowRightIcon size="1.5x" class="ml-2 -mr-1 w-4 h-4" />
     </a>
 
@@ -49,6 +49,7 @@
 import { GroupInterface } from '@shared/types';
 import { PropType, ref, toRefs } from 'vue';
 import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
+import { useRouter } from 'vue-router';
 import { useGroupStore } from '../store/groupStore';
 import CreateEditModal from '../modals/create-edit.vue';
 import { FormMode } from '../../common/types/form-mode';
@@ -64,9 +65,10 @@ const { group } = toRefs(props);
 const showDeleteModal = ref(false);
 const showEditModal = ref(false);
 const { archiveGroup, deleteGroup, unarchiveGroup } = useGroupStore();
+const router = useRouter();
 
-function openApplications() {
-  console.log('open applications of group', group.value.id);
+function enterGroup() {
+  router.push(`group/${group.value.id}`);
 }
 </script>
 

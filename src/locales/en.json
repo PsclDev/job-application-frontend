@@ -15,11 +15,15 @@
         "groups": {
           "overview": "All Groups",
           "create": "Create new group"
+        },
+        "group": {
+          "create": "Create new Application",
+          "showArchived": "Show archived applications"
         }
       },
       "components": {
         "groupcard": {
-          "allApplications": "View all applications"
+          "enter": "Enter group"
         }
       },
       "form": {

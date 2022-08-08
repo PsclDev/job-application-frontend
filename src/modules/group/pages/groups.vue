@@ -40,11 +40,15 @@ import GroupCard from '../components/group-card.vue';
 import { useGroupStore } from '../store/groupStore';
 import CreateEditModal from '../modals/create-edit.vue';
 import LoadingIcon from '@/components/common/buttons/LoadingIcon.vue';
+import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 
 const showArchived = ref(false);
 const showCreateModal = ref(false);
 const { getGroups, loading, error } = storeToRefs(useGroupStore());
 const { loadGroups } = useGroupStore();
+const { clearBreadcrumbs } = useBreadcrumbs();
+
+clearBreadcrumbs();
 
 const groups = computed(() => {
   return showArchived.value ? getGroups.value : getGroups.value.filter(group => !group.isArchived);
