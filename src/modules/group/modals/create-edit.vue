@@ -1,15 +1,16 @@
 <template>
-  <BaseModal :show-modal="modelValue" @show-modal="hideModal">
+  <BaseModal :show-modal="modelValue" :hide-actions="true" @show-modal="hideModal">
     <template #title>
       {{ mode === FormMode.CREATE ? $t('modules.group.modals.create.title') : $t('modules.group.modals.edit.title') }}
     </template>
     <template #body>
       <BaseForm
+        :id="formId"
         :submit-label="mode === FormMode.CREATE ? $t('common.create') : $t('common.update')"
         @submit="onSubmit"
       >
         <FormKit
-          v-model="model.name"
+          v-model="formValues.name"
           type="text"
           :label="$t('modules.group.form.name')"
           validation="required"
@@ -19,7 +20,7 @@
         />
 
         <FormKit
-          v-model="model.description"
+          v-model="formValues.description"
           type="text"
           :label="$t('modules.group.form.description')"
           maxlength="155"
@@ -31,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, defineProps, reactive, toRefs } from 'vue';
+import { PropType, reactive, ref, toRefs } from 'vue';
 import { FormMode } from '../../common/types/form-mode';
 import { useGroupStore } from '../store/groupStore';
 import { CreateGroupInterface } from '../types/create-group.interface';
@@ -51,32 +52,44 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'edited']);
+
+const formId = ref('create-edit-group');
 const { modelValue, mode, id } = toRefs(props);
 
-function hideModal(value: Boolean = true) {
-  emit('update:modelValue', !value);
-}
-
-const model: CreateGroupInterface = reactive({
+const initialState: CreateGroupInterface = reactive({
+  name: '',
+  description: '',
+});
+const formValues: CreateGroupInterface = reactive({
   name: '',
   description: '',
 });
 
 const { createGroup, groupById, updateGroup } = useGroupStore();
 
+function hideModal(value: Boolean = true) {
+  formValues.name = initialState.name;
+  emit('update:modelValue', !value);
+}
+
 if (mode.value === FormMode.EDIT) {
   const group = groupById(id.value);
-  model.name = group!.name;
-  model.description = group!.description;
+  initialState.name = group!.name;
+  initialState.description = group!.description;
+  formValues.name = group!.name;
+  formValues.description = group!.description;
 }
 
 function onSubmit() {
   if (mode.value === FormMode.CREATE) {
-    createGroup(model);
+    createGroup(formValues);
   }
   if (mode.value === FormMode.EDIT) {
-    updateGroup(id.value, model);
+    if (JSON.stringify(initialState) !== JSON.stringify(formValues)) {
+      updateGroup(id.value, formValues);
+      emit('edited', formValues);
+    }
   }
   hideModal();
 }
