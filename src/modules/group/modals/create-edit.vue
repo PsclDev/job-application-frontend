@@ -1,5 +1,5 @@
 <template>
-  <BaseModal :show-modal="modelValue" :hide-actions="true" @show-modal="hideModal">
+  <BaseModal v-if="modelValue" :hide-actions="true" @hide="hideModal">
     <template #title>
       {{ mode === FormMode.CREATE ? $t('modules.group.modals.create.title') : $t('modules.group.modals.edit.title') }}
     </template>
@@ -68,9 +68,9 @@ const formValues: CreateGroupInterface = reactive({
 
 const { createGroup, groupById, updateGroup } = useGroupStore();
 
-function hideModal(value: Boolean = true) {
+function hideModal() {
   formValues.name = initialState.name;
-  emit('update:modelValue', !value);
+  emit('update:modelValue', !modelValue);
 }
 
 if (mode.value === FormMode.EDIT) {

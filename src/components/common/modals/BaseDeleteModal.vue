@@ -1,5 +1,5 @@
 <template>
-  <BaseModal :show-modal="modelValue" @show-modal="hideModal">
+  <BaseModal v-if="modelValue" @hide="hideModal">
     <template #title>
       {{ $t(title) }}
     </template>
@@ -40,8 +40,8 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'deleted', 'canceled']);
 const { modelValue } = toRefs(props);
 
-function hideModal(value: Boolean = true) {
-  emit('update:modelValue', !value);
+function hideModal() {
+  emit('update:modelValue', !modelValue);
 }
 
 function deleted() {
