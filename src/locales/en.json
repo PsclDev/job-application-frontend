@@ -10,6 +10,36 @@
     "unarchive": "Unarchive"
   },
   "modules": {
+    "application": {
+      "components": {
+        "applicationcard": {
+          "move": "Move to another group",
+          "details": "View Details"
+        }
+      },
+      "form": {
+        "name": "Name",
+        "description": "Description",
+        "company": "Company",
+        "contactname": "Contact Name",
+        "contactposition": "Contact Position",
+        "contactemail": "Contact Email",
+        "joburl": "Job Posting Url",
+        "status": "Status",
+        "notes": "Notes"
+      },
+      "modals": {
+        "move": {
+          "title": "Move Application",
+          "description": "Select a group to move this application to",
+          "submit": "Move"
+        },
+        "delete": {
+          "title": "Delete Application",
+          "description": "Are you sure you want to delete this application?"
+        }
+      }
+    },
     "group": {
       "pages": {
         "groups": {
@@ -40,8 +70,8 @@
           "submit": "Save changes"
         },
         "delete": {
-          "title": "Delete Group",
-          "description": "Are you sure you want to delete this group?"
+          "title": "Delete Group and all Applications in Group",
+          "description": "Are you sure you want to delete this group? All applications in this group will also be deleted."
         }
       }
     }
