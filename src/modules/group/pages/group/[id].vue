@@ -11,6 +11,9 @@
     <div v-else-if="group">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
         {{ group.name }}
+        <span v-if="group.isArchived" class="inline-block mr-1 last:mr-0 py-1 px-2 rounded bg-indigo-200 text-xs font-semibold text-indigo-600 uppercase">
+          Archived
+        </span>
       </h2>
       <h3 class="text-center text-2xl text-gray-900">
         {{ group.description }}
@@ -28,6 +31,9 @@
       <div class="absolute top-4 right-3">
         <button class="py-2 px-3" @click="showEditModal = true">
           <Edit3Icon size="1.25x" />
+        </button>
+        <button class="py-2 px-3" @click="group!.isArchived ? unarchiveGroup(group!.id) : archiveGroup(group!.id)">
+          <ArchiveIcon size="1.25x" />
         </button>
         <button class="py-2 px-3" @click="showDeleteModal = true">
           <Trash2Icon size="1.25x" />
@@ -53,7 +59,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { computed, ref, toRefs } from 'vue';
-import { Edit3Icon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
+import { ArchiveIcon, Edit3Icon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { useRouter } from 'vue-router';
 import { useGroupStore } from '../../store/groupStore';
 import CreateEditModal from '../../modals/create-edit.vue';
@@ -79,7 +85,7 @@ const showEditModal = ref(false);
 const showCreateApplicationModal = ref(false);
 const { loading, error } = storeToRefs(useGroupStore());
 
-const { loadGroups, groupById, deleteGroup } = useGroupStore();
+const { loadGroups, groupById, deleteGroup, archiveGroup, unarchiveGroup } = useGroupStore();
 const { loadApplicationsByGroupId, applicationsByGroupId } = useApplicationStore();
 const router = useRouter();
 
