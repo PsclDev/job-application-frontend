@@ -6,6 +6,7 @@
     <template #body>
       {{ $t('modules.application.modals.move.description') }}
       <BaseForm
+        :disabled="disableForm"
         class="mt-5"
         :submit-label="$t('modules.application.modals.move.submit')"
         @submit="onSubmit"
@@ -47,10 +48,16 @@ const { moveApplication } = useApplicationStore();
 const { getGroups } = storeToRefs(useGroupStore());
 const selectedGroupId = ref('');
 const groupOptions = ref<any>({});
+const disableForm = ref(false);
 
 getGroups.value.filter(g => g.id !== currentGroupId.value).forEach((group) => {
   groupOptions.value[group.id] = group.name;
 });
+
+if (groupOptions.value) {
+  disableForm.value = true;
+  groupOptions.value.disabled = 'No other groups found';
+}
 
 function hideModal() {
   emit('update:modelValue', !modelValue);
