@@ -1,7 +1,7 @@
 <template>
   <BaseModal v-if="modelValue" :hide-actions="true" @hide="hideModal">
     <template #title>
-      {{ mode === FormMode.CREATE ? $t('modules.group.modals.create.title') : $t('modules.group.modals.edit.title') }}
+      {{ mode === FormMode.CREATE ? $t('modules.application.modals.create.title') : $t('modules.application.modals.edit.title') }}
     </template>
     <template #body>
       <BaseForm
@@ -43,7 +43,7 @@
           type="text"
           help="If you set a contact, all contact fields are required"
           validation="contact"
-          :label="$t('modules.application.form.contactname')"
+          :label="$t('modules.application.form.contact.name')"
           minlength="3"
           maxlength="50"
           validation-visibility="dirty"
@@ -54,8 +54,7 @@
           name="contactPosition"
           type="text"
           validation="contact"
-          :validation-label="$t('modules.application.form.contactposition')"
-          :label="$t('modules.application.form.contactposition')"
+          :label="$t('modules.application.form.contact.position')"
           minlength="3"
           maxlength="50"
           validation-visibility="dirty"
@@ -66,8 +65,7 @@
           name="contactEmail"
           type="email"
           validation="contact"
-          :validation-label="$t('modules.application.form.contactposition')"
-          :label="$t('modules.application.form.contactemail')"
+          :label="$t('modules.application.form.contact.email')"
           minlength="3"
           maxlength="50"
           validation-visibility="dirty"
@@ -86,14 +84,6 @@
           type="text"
           validation="required"
           :label="$t('modules.application.form.status')"
-          maxlength="155"
-          validation-visibility="dirty"
-        />
-
-        <FormKit
-          v-model="formValues.notes"
-          type="text"
-          :label="$t('modules.application.form.notes')"
           maxlength="155"
           validation-visibility="dirty"
         />
@@ -128,7 +118,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue', 'edited']);
-
 const formId = ref('create-edit-group');
 const { modelValue, mode, groupId, id } = toRefs(props);
 

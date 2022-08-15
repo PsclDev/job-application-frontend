@@ -80,7 +80,7 @@ const { archiveApplication, unarchiveApplication, deleteApplication } = useAppli
 const router = useRouter();
 
 function enterApplication() {
-  router.push(`application/${application.value.id}`);
+  router.push(`/application/${application.value.id}`);
 }
 </script>
 

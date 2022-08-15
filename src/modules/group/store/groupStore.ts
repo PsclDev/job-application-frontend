@@ -46,6 +46,38 @@ export const useGroupStore = defineStore('group', {
         this.logger.error('loadGroups', e);
       }
     },
+    async loadGroupById(id: string) {
+      try {
+        this.loading = true;
+
+        const res = await axios.post<{ group: GroupInterface }>('', {
+          query: `
+          query {
+            group(id: "${id}") {
+              id
+              name
+              description
+              applications {
+                id
+                name
+              }
+              isArchived
+              createdAt
+              updatedAt
+            }
+          }
+          `,
+        });
+        this.logger.info('loadGroupById', res.data.group);
+        this.groups = [res.data.group, ...this.groups.filter(group => group.id !== id)];
+        this.sortGroups();
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        this.error = 'Couldn\'t fetch group';
+        this.logger.error('loadGroupById', e);
+      }
+    },
     async createGroup(group: CreateGroupInterface) {
       try {
         const res = await axios.post<{ createGroup: GroupInterface }>('', {
@@ -195,7 +227,7 @@ export const useGroupStore = defineStore('group', {
   getters: {
     getGroups: state => state.groups,
     groupById: (state) => {
-      return (id: string) => state.groups.find(group => group.id === id);
+      return (id: string): GroupInterface | undefined => state.groups.find(group => group.id === id);
     },
   },
 });

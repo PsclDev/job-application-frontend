@@ -16,6 +16,45 @@ export const useApplicationStore = defineStore('application', {
     };
   },
   actions: {
+    async loadApplications() {
+      try {
+        this.loading = true;
+
+        const res = await axios.post<{ applications: ApplicationInterface[] }>('', {
+          query: `
+                query {
+                  applications {
+                    groupId
+                    id
+                    name
+                    description
+                    company
+                    contact {
+                      name
+                      position
+                      email
+                    }
+                    jobUrl
+                    status
+                    notes
+                    isArchived
+                    createdAt
+                    updatedAt
+                  }
+                }
+              `,
+        });
+        this.logger.info('loadApplications', res.data.applications);
+
+        this.applications = res.data.applications;
+        this.sortApplications();
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        this.error = 'Couldn\'t fetch applications';
+        this.logger.error('loadApplications', e);
+      }
+    },
     async loadApplicationsByGroupId(groupId: string) {
       try {
         this.loading = true;
@@ -47,8 +86,8 @@ export const useApplicationStore = defineStore('application', {
         this.logger.info('loadApplicationsByGroupId', groupId, 'result', res.data.applicationsByGroupId);
 
         if (res.data.applicationsByGroupId) {
-          this.applications = res.data.applicationsByGroupId;
-          this.sortGroups();
+          this.applications = [...res.data.applicationsByGroupId, ...this.applications.filter(app => app.groupId !== groupId)];
+          this.sortApplications();
         }
         this.loading = false;
       } catch (e) {
@@ -188,7 +227,7 @@ export const useApplicationStore = defineStore('application', {
         },
         );
 
-        this.sortGroups();
+        this.sortApplications();
       } catch (e) {
         this.error = `Failed to move application ${id} to group ${groupId}`;
         this.logger.error('moveApplication', e);
@@ -213,7 +252,7 @@ export const useApplicationStore = defineStore('application', {
         },
         );
 
-        this.sortGroups();
+        this.sortApplications();
       } catch (e) {
         this.error = `Failed to archive application ${id}`;
         this.logger.error('archiveApplication', e);
@@ -238,7 +277,7 @@ export const useApplicationStore = defineStore('application', {
         },
         );
 
-        this.sortGroups();
+        this.sortApplications();
       } catch (e) {
         this.error = `Failed to unarchive application ${id}`;
         this.logger.error('unarchiveApplication', e);
@@ -260,7 +299,7 @@ export const useApplicationStore = defineStore('application', {
         this.logger.error('deleteApplication', e);
       }
     },
-    sortGroups() {
+    sortApplications() {
       const sortApplications = (a: ApplicationInterface, b: ApplicationInterface) => {
         if (a.isArchived === b.isArchived) {
           return a.name.localeCompare(b.name);

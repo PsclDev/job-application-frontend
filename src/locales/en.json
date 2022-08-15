@@ -21,14 +21,22 @@
         "name": "Name",
         "description": "Description",
         "company": "Company",
-        "contactname": "Contact Name",
-        "contactposition": "Contact Position",
-        "contactemail": "Contact Email",
+        "contact": {
+          "name": "Contact Name",
+          "position": "Contact Position",
+          "email": "Contact Email"
+        },
         "joburl": "Job Posting Url",
         "status": "Status",
         "notes": "Notes"
       },
       "modals": {
+        "create": {
+          "title": "Create a new Application"
+        },
+        "edit": {
+          "title": "Edit existing application"
+        },
         "move": {
           "title": "Move Application",
           "description": "Select a group to move this application to",
@@ -37,6 +45,11 @@
         "delete": {
           "title": "Delete Application",
           "description": "Are you sure you want to delete this application?"
+        }
+      },
+      "pages": {
+        "detail": {
+          "createmeeting": "Create Meeting"
         }
       }
     },
