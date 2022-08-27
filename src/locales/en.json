@@ -27,8 +27,7 @@
           "email": "Contact Email"
         },
         "joburl": "Job Posting Url",
-        "status": "Status",
-        "notes": "Notes"
+        "status": "Status"
       },
       "modals": {
         "create": {
@@ -86,6 +85,25 @@
           "title": "Delete Group and all Applications in Group",
           "description": "Are you sure you want to delete this group? All applications in this group will also be deleted."
         }
+      }
+    },
+    "meeting": {
+      "modals": {
+        "create": {
+          "title": "Create a new meeting"
+        },
+        "edit": {
+          "title": "Edit existing meeting"
+        },
+        "delete": {
+          "title": "Delete Meeting",
+          "description": "Are you sure you want to delete this meeting?"
+        }
+      },
+      "form": {
+        "title:": "Title",
+        "date": "Date",
+        "attendees": "Attendees"
       }
     }
   }

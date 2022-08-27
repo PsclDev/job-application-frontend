@@ -16,8 +16,15 @@
         </span>
       </h2>
       <h3 class="text-center text-2xl text-gray-900">
+        {{ application.contact ? `${application.contact.name} - ${application.contact.email}` : 'No contact' }}
+      </h3>
+      <h3 class="text-center text-xl text-gray-900">
         {{ application.description }}
       </h3>
+
+      <button class="mb-5 rounded-lg px-4 py-2 bg-blue-700 text-green-100 hover:bg-blue-800 duration-300" @click="showCreateMeetingModal = true">
+        {{ $t('modules.application.pages.detail.createmeeting') }}
+      </button>
 
       <div class="absolute top-4 right-3">
         <button class="py-2 px-3" @click="showEditModal = true">
@@ -40,6 +47,8 @@
 
   <MoveModal :id="application!.id" v-model="showMoveModal" :current-group-id="application!.groupId" />
 
+  <CreateEditMeetingModal v-model="showCreateMeetingModal" :application-id="application!.id" />
+
   <BaseDeleteModal v-model="showDeleteModal" title="modules.application.modals.delete.title" description="modules.application.modals.delete.description" @deleted="deleted" />
 
   <Suspense>
@@ -59,6 +68,7 @@ import { FormMode } from '../../../common/types/form-mode';
 import MoveModal from '../../modals/move.vue';
 import LoadingIcon from '@/components/common/buttons/LoadingIcon.vue';
 import { Logger } from '@/modules/common/utils/logger';
+import CreateEditMeetingModal from '@/modules/meeting/modals/create-edit.vue';
 import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 import { useGroupStore } from '@/modules/group/store/groupStore';
 
@@ -74,6 +84,7 @@ const quillEditor = ref();
 const showEditModal = ref(false);
 const showMoveModal = ref(false);
 const showDeleteModal = ref(false);
+const showCreateMeetingModal = ref(false);
 const { loading, error } = storeToRefs(useApplicationStore());
 
 const { loadApplications, applicationById, deleteApplication, archiveApplication, unarchiveApplication, updateApplication } = useApplicationStore();
