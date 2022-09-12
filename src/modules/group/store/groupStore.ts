@@ -11,6 +11,18 @@ export const useGroupStore = defineStore('group', {
       groups: [] as GroupInterface[],
       loading: false,
       error: null as String | null,
+      resultData: `
+        id
+        name
+        description
+        applications {
+          id
+          name
+        }
+        isArchived
+        createdAt
+        updatedAt
+        `,
     };
   },
   actions: {
@@ -22,16 +34,7 @@ export const useGroupStore = defineStore('group', {
           query: `
           query {
             groups {
-              id
-              name
-              description
-              applications {
-                id
-                name
-              }
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,
@@ -54,16 +57,7 @@ export const useGroupStore = defineStore('group', {
           query: `
           query {
             group(id: "${id}") {
-              id
-              name
-              description
-              applications {
-                id
-                name
-              }
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,
@@ -89,16 +83,7 @@ export const useGroupStore = defineStore('group', {
                 description: "${group.description}"
               }
             ) {
-              id
-              name
-              description
-              applications {
-                id
-                name
-              }
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,
@@ -122,16 +107,7 @@ export const useGroupStore = defineStore('group', {
                 description: "${group.description}"
               }
             ) {
-              id
-              name
-              description
-              applications {
-                id
-                name
-              }
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,

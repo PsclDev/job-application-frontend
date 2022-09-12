@@ -61,9 +61,9 @@ const initialState: CreateGroupInterface = reactive({
   name: '',
   description: '',
 });
+
 const formValues: CreateGroupInterface = reactive({
-  name: '',
-  description: '',
+  ...initialState,
 });
 
 const { createGroup, groupById, updateGroup } = useGroupStore();
