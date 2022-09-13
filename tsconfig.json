@@ -12,10 +12,7 @@
     "skipLibCheck": true,
     "incremental": false,
     "baseUrl": "./",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "types": [
       "@types/lodash-es",
       "@zhuowenli/vue-feather-icons",
@@ -33,21 +30,11 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@shared": ["shared/"],
-      "@shared/*": ["shared/*"]
+      "@/*": ["src/*"],
+      "@shared": ["shared/types"],
+      "@shared/*": ["shared/types/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["dist", "node_modules"]
 }

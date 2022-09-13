@@ -61,7 +61,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref, toRefs } from 'vue';
 import { ArchiveIcon, Edit3Icon, FolderIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { useRouter } from 'vue-router';
-import { GroupInterface } from '@shared/types';
+import { GroupInterface } from '@shared';
 import { useApplicationStore } from '../../store/applicationStore';
 import CreateEditModal from '../../modals/create-edit.vue';
 import { FormMode } from '../../../common/types/form-mode';

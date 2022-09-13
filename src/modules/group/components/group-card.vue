@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import { GroupInterface } from '@shared/types';
+import { GroupInterface } from '@shared';
 import { PropType, ref, toRefs } from 'vue';
 import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
 import { useRouter } from 'vue-router';

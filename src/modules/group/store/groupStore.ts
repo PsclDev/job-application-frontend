@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { GroupInterface } from '@shared/types';
+import { GroupInterface } from '@shared';
 import { CreateGroupInterface, UpdateGroupInterface } from '../types/create-group.interface';
 import { Logger } from '@/modules/common/utils/logger';
 

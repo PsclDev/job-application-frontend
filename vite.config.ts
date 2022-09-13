@@ -15,6 +15,7 @@ export default defineConfig({
   },
   plugins: [
     eslint({
+      include: './src',
       emitWarning: false,
       emitError: false,
     }),
@@ -43,6 +44,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@shared': path.resolve(__dirname, 'shared/types'),
     },
   },
   optimizeDeps: {

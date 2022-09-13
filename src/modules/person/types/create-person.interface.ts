@@ -1,4 +1,4 @@
-import { PersonInterface } from '@shared/types';
+import { PersonInterface } from '@shared';
 
 export type CreatePersonInterface = Pick<PersonInterface, 'name' | 'position' | 'email'>;
-export type UpdatePersonInterface = Partial<PersonInterface>;
+export type UpdatePersonInterface = Partial<CreatePersonInterface>;

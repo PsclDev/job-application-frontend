@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ApplicationInterface } from '@shared/types';
+import { ApplicationInterface } from '@shared';
 import { PropType, ref, toRefs } from 'vue';
 import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
 import { useRouter } from 'vue-router';
