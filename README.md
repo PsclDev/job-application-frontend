@@ -49,3 +49,5 @@ if you `merge` or `push` to `master` branch it will create a new docker image
 
 **Read the comments inside the `.github/workflows/pipeline` file and change the values to your like**
  
+ ## Credits
+ Favicon: https://7tv.app/emotes/6144a1e97b14fdf700b9424e

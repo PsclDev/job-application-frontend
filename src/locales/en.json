@@ -9,6 +9,17 @@
     "archive": "Archive",
     "unarchive": "Unarchive"
   },
+  "enum": {
+    "state": {
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "INTERVIEW": "Interview",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "NOT_INTERESTED": "Not interested",
+      "NO_ANSWER": "No answer"
+    }
+  },
   "modules": {
     "application": {
       "components": {
@@ -48,6 +59,7 @@
       },
       "pages": {
         "detail": {
+          "changestatus": "Change Status",
           "createmeeting": "Create Meeting"
         }
       }
@@ -90,7 +102,7 @@
     "meeting": {
       "modals": {
         "create": {
-          "title": "Create a new meeting"
+          "title": "Add a new meeting"
         },
         "edit": {
           "title": "Edit existing meeting"

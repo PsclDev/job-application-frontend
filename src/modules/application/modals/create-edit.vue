@@ -4,13 +4,14 @@
       {{ mode === FormMode.CREATE ? $t('modules.application.modals.create.title') : $t('modules.application.modals.edit.title') }}
     </template>
     <template #body>
-      <BaseForm
-        :id="formId"
+      <FormKit
+        v-model="form"
+        type="form"
         :submit-label="mode === FormMode.CREATE ? $t('common.create') : $t('common.update')"
         @submit="onSubmit"
       >
         <FormKit
-          v-model="formValues.name"
+          name="name"
           type="text"
           :label="$t('modules.application.form.name')"
           validation="required"
@@ -20,16 +21,15 @@
         />
 
         <FormKit
-          v-model="formValues.description"
+          name="description"
           type="text"
-          validation="required"
           :label="$t('modules.application.form.description')"
           maxlength="155"
           validation-visibility="dirty"
         />
 
         <FormKit
-          v-model="formValues.company"
+          name="company"
           type="text"
           validation="required"
           :label="$t('modules.application.form.company')"
@@ -38,11 +38,8 @@
         />
 
         <FormKit
-          v-model="formValues.contact.name"
-          name="contactName"
+          name="contact.name"
           type="text"
-          help="If you set a contact, all contact fields are required"
-          validation="contact"
           :label="$t('modules.application.form.contact.name')"
           minlength="3"
           maxlength="50"
@@ -50,21 +47,18 @@
         />
 
         <FormKit
-          v-model="formValues.contact.position"
-          name="contactPosition"
+          name="contact.position"
           type="text"
-          validation="contact"
           :label="$t('modules.application.form.contact.position')"
-          minlength="3"
+          minlength="2"
           maxlength="50"
           validation-visibility="dirty"
         />
 
         <FormKit
-          v-model="formValues.contact.email"
-          name="contactEmail"
+          name="contact.email"
           type="email"
-          validation="contact"
+          validation="email"
           :label="$t('modules.application.form.contact.email')"
           minlength="3"
           maxlength="50"
@@ -72,7 +66,7 @@
         />
 
         <FormKit
-          v-model="formValues.jobUrl"
+          name="jobUrl"
           type="url"
           validation="required|url"
           :label="$t('modules.application.form.joburl')"
@@ -80,20 +74,20 @@
         />
 
         <FormKit
-          v-model="formValues.status"
-          type="text"
+          name="status.state"
+          type="select"
           validation="required"
+          :options="stateOptions"
           :label="$t('modules.application.form.status')"
-          maxlength="155"
-          validation-visibility="dirty"
         />
-      </BaseForm>
+      </FormKit>
     </template>
   </BaseModal>
 </template>
 
 <script lang="ts" setup>
-import { PropType, reactive, ref, toRefs } from 'vue';
+import { StateEnum } from '@shared';
+import { PropType, getCurrentInstance, ref, toRefs } from 'vue';
 import { FormMode } from '../../common/types/form-mode';
 import { useApplicationStore } from '../store/applicationStore';
 import { CreateApplicationInterface } from '../types/create-application.interface';
@@ -118,10 +112,16 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue', 'edited']);
-const formId = ref('create-edit-group');
 const { modelValue, mode, groupId, id } = toRefs(props);
 
-let initialState: CreateApplicationInterface = reactive({
+const stateOptions = ref({} as any);
+const app = getCurrentInstance();
+const translation = app?.appContext.config.globalProperties.$t;
+Object.keys(StateEnum).forEach((s: string) => {
+  stateOptions.value[s] = translation(`enum.state.${s}`);
+});
+
+const initialState = ref<CreateApplicationInterface>({
   name: '',
   description: '',
   company: '',
@@ -131,68 +131,46 @@ let initialState: CreateApplicationInterface = reactive({
     email: '',
   },
   jobUrl: '',
-  status: '',
+  status: {
+    state: StateEnum.PENDING,
+    date: new Date(),
+  },
   notes: '',
 });
-let formValues: CreateApplicationInterface = reactive({
-  name: '',
-  description: '',
-  company: '',
-  contact: {
-    name: '',
-    position: '',
-    email: '',
-  },
-  jobUrl: '',
-  status: '',
-  notes: '',
+
+const form = ref<CreateApplicationInterface>({
+  ...initialState.value,
 });
 
 const { createApplication, applicationById, updateApplication } = useApplicationStore();
 
 function hideModal() {
-  formValues.name = initialState.name;
+  form.value = initialState.value;
   emit('update:modelValue', !modelValue);
 }
 
 if (mode.value === FormMode.EDIT) {
   const application = applicationById(id.value)!;
-  initialState = {
-    name: application.name,
-    description: application.description,
-    company: application.company,
-    contact: {
-      name: application.contact?.name,
-      position: application.contact?.position,
-      email: application.contact?.email,
-    },
-    jobUrl: application.jobUrl,
-    status: application.status,
-    notes: application.notes,
+  const { status, ...data } = application;
+
+  // TODO get latest status
+  initialState.value = {
+    ...data,
+    status: status[0],
   };
-  formValues = {
-    name: application.name,
-    description: application.description,
-    company: application.company,
-    contact: {
-      name: application.contact?.name,
-      position: application.contact?.position,
-      email: application.contact?.email,
-    },
-    jobUrl: application.jobUrl,
-    status: application.status,
-    notes: application.notes,
+  form.value = {
+    ...initialState.value,
   };
 }
 
-function onSubmit() {
+async function onSubmit() {
   if (mode.value === FormMode.CREATE) {
-    createApplication(groupId.value, formValues);
+    await createApplication(groupId.value, form.value);
   }
   if (mode.value === FormMode.EDIT) {
-    if (JSON.stringify(initialState) !== JSON.stringify(formValues)) {
-      updateApplication(id.value, formValues);
-      emit('edited', formValues);
+    if (JSON.stringify(initialState) !== JSON.stringify(form)) {
+      await updateApplication(id.value, form.value);
+      emit('edited', form);
     }
   }
   hideModal();

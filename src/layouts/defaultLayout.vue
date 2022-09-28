@@ -3,4 +3,8 @@
   <Suspense>
     <router-view />
   </Suspense>
+
+  <Suspense>
+    <custom-calendar />
+  </Suspense>
 </template>

@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { ApplicationInterface } from '@shared/types';
+import { ApplicationInterface, MeetingInterface } from '@shared';
+import { DateTime } from 'luxon';
 import { CreateApplicationInterface, UpdateApplicationInterface } from '../types/create-application.interface';
 import { Logger } from '@/modules/common/utils/logger';
+import { CreateStatusInterface } from '@/modules/status/types/create-status.interface';
 
-// TODO: simplify query in a const
 // TODO: replace this.error with notification
 export const useApplicationStore = defineStore('application', {
   state: () => {
@@ -13,10 +14,48 @@ export const useApplicationStore = defineStore('application', {
       applications: [] as ApplicationInterface[],
       loading: false,
       error: null as String | null,
+      resultData: `
+        groupId
+        id
+        name
+        description
+        company
+        contact {
+          name
+          position
+          email
+        }
+        jobUrl
+        status {
+          state
+          date
+        }
+        meetings {
+          title
+          date
+          attendees {
+            name
+            position
+            email
+          }
+        }
+        notes
+        files {
+          name
+          extension
+          data
+          size
+          mime
+        }
+        isArchived
+        createdAt
+        updatedAt
+        `,
     };
   },
   actions: {
     async loadApplications() {
+      console.log('LOAD ALL APPLICATIONS STORE SHIT');
       try {
         this.loading = true;
 
@@ -24,22 +63,7 @@ export const useApplicationStore = defineStore('application', {
           query: `
                 query {
                   applications {
-                    groupId
-                    id
-                    name
-                    description
-                    company
-                    contact {
-                      name
-                      position
-                      email
-                    }
-                    jobUrl
-                    status
-                    notes
-                    isArchived
-                    createdAt
-                    updatedAt
+                    ${this.resultData}
                   }
                 }
               `,
@@ -63,22 +87,7 @@ export const useApplicationStore = defineStore('application', {
           query: `
             query {
               applicationsByGroupId(groupId: "${groupId}") {
-                groupId
-                id
-                name
-                description
-                company
-                contact {
-                  name
-                  position
-                  email
-                }
-                jobUrl
-                status
-                notes
-                isArchived
-                createdAt
-                updatedAt
+                ${this.resultData}
               }
             }
           `,
@@ -98,11 +107,19 @@ export const useApplicationStore = defineStore('application', {
     },
     async createApplication(groupId: string, application: CreateApplicationInterface) {
       try {
+        this.logger.debug('asdasd');
+        this.logger.debug('CreateApplication', application);
         const contact = `
           contact: {
             name: "${application.contact.name}"
             position: "${application.contact.position}"
             email: "${application.contact.email}"
+          }
+        `;
+        const status = `
+          status: {
+            state: "${application.status.state}"
+            date: "${DateTime.fromJSDate(application.status.date).toISO()}"
           }
         `;
         const res = await axios.post<{ createApplication: ApplicationInterface }>('', {
@@ -116,26 +133,11 @@ export const useApplicationStore = defineStore('application', {
                 company: "${application.company}"
                 ${application.contact.name ? contact : ''}
                 jobUrl: "${application.jobUrl}"
-                status: "${application.status}"
+                ${status}
                 notes: "${application.notes}"
               }
             ) {
-              groupId
-              id
-              name
-              description
-              company
-              contact {
-                name
-                position
-                email
-              }
-              jobUrl
-              status
-              notes
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,
@@ -144,7 +146,7 @@ export const useApplicationStore = defineStore('application', {
         this.applications.push(res.data.createApplication);
       } catch (e) {
         this.error = `Failed to create application ${application}`;
-        this.logger.error('createApplication', e);
+        this.logger.error('createApplication', { data: application, error: e });
       }
     },
     async updateApplication(id: string, application: UpdateApplicationInterface) {
@@ -171,22 +173,7 @@ export const useApplicationStore = defineStore('application', {
                 notes: "${application.notes}"
               }
             ) {
-              groupId
-              id
-              name
-              description
-              company
-              contact {
-                name
-                position
-                email
-              }
-              jobUrl
-              status
-              notes
-              isArchived
-              createdAt
-              updatedAt
+              ${this.resultData}
             }
           }
           `,
@@ -201,6 +188,69 @@ export const useApplicationStore = defineStore('application', {
       } catch (e) {
         this.error = `Failed to update application ${application}`;
         this.logger.error('updateApplication', e);
+      }
+    },
+    async changeStatus(id: string, status: CreateStatusInterface) {
+      try {
+        const newStatus = { ...status };
+        const res = await axios.post<{ updateStatus: boolean }>('', {
+          query: `
+            mutation {
+              updateStatus(
+                id: "${id}"
+                input: {
+                  state: "${newStatus.state}"
+                  date: "${DateTime.fromJSDate(newStatus.date).toISO()}"
+                }
+              )
+            }
+          `,
+        });
+        this.logger.info('changeStatus', res.data.updateStatus);
+
+        this.applications = this.applications.map((application) => {
+          if (application.id === id) {
+            application.status.push(newStatus);
+          }
+          return application;
+        },
+        );
+
+        this.sortApplications();
+      } catch (e) {
+        this.error = `Failed to change status of application ${id} to state ${status}`;
+        this.logger.error('changeStatus', e);
+      }
+    },
+    async updateMeeting(id: string, updatedMeeting: MeetingInterface | string, action: 'ADD' | 'UPDATE' | 'DELETE') {
+      try {
+        this.logger.info('updateMeeting', action, updatedMeeting);
+
+        this.applications = this.applications.map((application) => {
+          if (application.id === id) {
+            switch (action) {
+              case 'ADD':
+                application.meetings.push(updatedMeeting as MeetingInterface);
+                break;
+              case 'UPDATE':
+                application.meetings = application.meetings.map((meeting) => {
+                  if (meeting.id === (updatedMeeting as MeetingInterface).id!) {
+                    meeting = updatedMeeting as MeetingInterface;
+                  }
+                  return meeting;
+                });
+                break;
+              case 'DELETE':
+                application.meetings.filter(meeting => meeting.id !== updatedMeeting);
+                break;
+            }
+          }
+          return application;
+        },
+        );
+      } catch (e) {
+        this.error = `Failed to update meeting of application ${id}, ${action}, ${updatedMeeting}`;
+        this.logger.error('updateMeeting', e);
       }
     },
     async moveApplication(id: string, groupId: string) {
@@ -310,6 +360,10 @@ export const useApplicationStore = defineStore('application', {
     },
   },
   getters: {
+    allApplications: (state) => {
+      console.log('allApplications getter', state.applications);
+      return state.applications;
+    },
     applicationsByGroupId: (state) => {
       return (groupId: string): ApplicationInterface[] => state.applications.filter(application => application.groupId === groupId);
     },

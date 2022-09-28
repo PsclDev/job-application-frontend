@@ -21,6 +21,13 @@
       <h3 class="text-center text-xl text-gray-900">
         {{ application.description }}
       </h3>
+      <h3 class="text-center text-xl text-gray-900">
+        {{ $t(`enum.state.${application.status[application.status.length - 1].state}`) }}
+      </h3>
+
+      <button class="mb-5 rounded-lg px-4 py-2 bg-blue-700 text-green-100 hover:bg-blue-800 duration-300" @click="showChangeStatusModal = true">
+        {{ $t('modules.application.pages.detail.changestatus') }}
+      </button>
 
       <button class="mb-5 rounded-lg px-4 py-2 bg-blue-700 text-green-100 hover:bg-blue-800 duration-300" @click="showCreateMeetingModal = true">
         {{ $t('modules.application.pages.detail.createmeeting') }}
@@ -33,6 +40,9 @@
         <button class="py-2 px-3" @click="showMoveModal = true">
           <FolderIcon size="1.25x" />
         </button>
+        <a :href="application.jobUrl" target="_blank" class="py-2 px-3">
+          <ExternalLinkIcon size="1.25x" />
+        </a>
         <button class="py-2 px-3" @click="application!.isArchived ? unarchiveApplication(application!.id) : archiveApplication(application!.id)">
           <ArchiveIcon size="1.25x" />
         </button>
@@ -47,6 +57,8 @@
 
   <MoveModal :id="application!.id" v-model="showMoveModal" :current-group-id="application!.groupId" />
 
+  <ChangeStatusModal :id="application!.id" v-model="showChangeStatusModal" />
+
   <CreateEditMeetingModal v-model="showCreateMeetingModal" :application-id="application!.id" />
 
   <BaseDeleteModal v-model="showDeleteModal" title="modules.application.modals.delete.title" description="modules.application.modals.delete.description" @deleted="deleted" />
@@ -59,7 +71,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { onMounted, ref, toRefs } from 'vue';
-import { ArchiveIcon, Edit3Icon, FolderIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
+import { ArchiveIcon, Edit3Icon, ExternalLinkIcon, FolderIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { useRouter } from 'vue-router';
 import { GroupInterface } from '@shared';
 import { useApplicationStore } from '../../store/applicationStore';
@@ -69,6 +81,7 @@ import MoveModal from '../../modals/move.vue';
 import LoadingIcon from '@/components/common/buttons/LoadingIcon.vue';
 import { Logger } from '@/modules/common/utils/logger';
 import CreateEditMeetingModal from '@/modules/meeting/modals/create-edit.vue';
+import ChangeStatusModal from '@/modules/status/modals/change-status.vue';
 import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 import { useGroupStore } from '@/modules/group/store/groupStore';
 
@@ -85,6 +98,7 @@ const showEditModal = ref(false);
 const showMoveModal = ref(false);
 const showDeleteModal = ref(false);
 const showCreateMeetingModal = ref(false);
+const showChangeStatusModal = ref(false);
 const { loading, error } = storeToRefs(useApplicationStore());
 
 const { loadApplications, applicationById, deleteApplication, archiveApplication, unarchiveApplication, updateApplication } = useApplicationStore();
