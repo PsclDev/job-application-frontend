@@ -1,10 +1,5 @@
 <template>
-  <TheBreadcrumbs class="p-3" />
-  <Suspense>
+  <div class="mx-5 mt-10">
     <router-view />
-  </Suspense>
-
-  <Suspense>
-    <custom-calendar />
-  </Suspense>
+  </div>
 </template>
