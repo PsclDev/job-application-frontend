@@ -1,12 +1,18 @@
 <template>
-  <router-view />
+  <suspense>
+    <router-view />
+  </suspense>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from 'vue';
+import { useGroupStore } from './modules/group/store/group.store';
 import { DEFAULT_APP_TITLE } from '@/modules/common/config';
 
-export default defineComponent({
+const { loadAll: loadAllGroups } = useGroupStore();
+loadAllGroups();
+
+defineComponent({
   watch: {
     $route: {
       handler() {

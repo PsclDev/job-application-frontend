@@ -1,3 +1,34 @@
 {
-  "App": "Job Application"
+  "common": {
+    "create": "Create",
+    "edit": "Edit",
+    "show-archived": "Show archived",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "delete": "Delete"
+  },
+  "modules": {
+    "group": {
+      "components": {
+        "card": {
+          "action": "View group"
+        }
+      },
+      "modal": {
+        "form": {
+          "create": "Create Group",
+          "edit": "Edit Group",
+          "name": "Name",
+          "description": "Description"
+        }
+      },
+      "pages": {
+        "groups": {
+          "title": "Groups",
+          "create": "Create new group",
+          "not-found": "No groups could be found"
+        }
+      }
+    }
+  }
 }
