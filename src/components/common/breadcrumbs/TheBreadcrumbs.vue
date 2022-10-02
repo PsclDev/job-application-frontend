@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row">
     <div v-for="(crumb, index) in getBreadcrumbs" :key="crumb.label" class="flex flex-row">
-      <a class="cursor-pointer" @click="router.push(crumb.to)">
+      <a class="cursor-pointer" :class="index === getBreadcrumbs.length - 1 ? 'text-emerald-400 font-bold' : ''" @click="router.push(crumb.to)">
         {{ crumb.translate ? $t(crumb.label) : crumb.label }}
       </a>
       <p class="px-1">

@@ -51,6 +51,7 @@ import { ArchiveIcon, EditIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-fea
 import { useGroupStore } from '../../store/group.store';
 import EditGroup from '../../components/create-edit.vue';
 import { FormMode } from '@/modules/common/types';
+import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 
 const props = defineProps({
   id: {
@@ -68,6 +69,20 @@ const group = ref(groupById(id.value));
 if (!group.value) {
   router.push('/groups');
 }
+
+const { setBreadcrumbs } = useBreadcrumbs();
+setBreadcrumbs([
+  {
+    label: 'modules.group.pages.groups.title',
+    translate: true,
+    to: '/groups',
+  },
+  {
+    label: group.value!.name,
+    translate: false,
+    to: `/group/${id.value}`,
+  },
+]);
 
 const showEditModal = ref(false);
 const showArchivedStorageKey = 'show-archived';

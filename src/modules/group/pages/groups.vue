@@ -46,6 +46,10 @@ import { computed, ref } from 'vue';
 import { useGroupStore } from '../store/group.store';
 import Group from '../components/group.vue';
 import CreateGroup from '../components/create-edit.vue';
+import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
+
+const { clearBreadcrumbs } = useBreadcrumbs();
+clearBreadcrumbs();
 
 const groupStore = useGroupStore();
 const { loading, groups: storeGroups } = storeToRefs(groupStore);
