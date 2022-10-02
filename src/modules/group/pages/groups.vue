@@ -1,7 +1,7 @@
 <template>
-  <h2 class="text-center text-3xl font-extrabold text-gray-900">
+  <p class="text-center text-3xl font-extrabold text-gray-900">
     {{ $t('modules.group.pages.groups.title') }}
-  </h2>
+  </p>
 
   <div class="flex flex-col justify-center items-center mt-10">
     <button class="px-6 py-2 w-112 text-sm rounded shadow bg-emerald-100 hover:bg-emerald-300 text-emerald-500 hover:text-emerald-700" @click="showCreateModal = true">

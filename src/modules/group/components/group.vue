@@ -3,7 +3,7 @@
     <BaseCard :title="group.name" :description="group.description" action="modules.group.components.card.action" :archived="group.isArchived" :dropdown-options="dropdownOptions" @action-clicked="cardAction" @dropdown-clicked="async (option: DropdownOption) => await option.action()" />
 
     <GDialog v-model="showEditModal">
-      <EditGroup :mode="FormMode.EDIT" :group="group" />
+      <EditGroup :mode="FormMode.EDIT" :group="group" @submit="showEditModal = false" />
     </GDialog>
   </div>
 </template>

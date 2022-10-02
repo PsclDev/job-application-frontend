@@ -64,7 +64,7 @@ export const useGroupStore = defineStore('group', {
         });
         this.groups.push(res.data.createGroup);
         this.sortGroups();
-        this.actionSucceeded('create', `New group created: '${group.name}'`);
+        this.actionSucceeded('create', `New group created: '${group.name}'`, group);
       } catch (err) {
         this.catchError('create', err, 'Failed to create group');
       }
@@ -88,12 +88,12 @@ export const useGroupStore = defineStore('group', {
         });
         this.groups = this.groups.map((group) => {
           if (group.id === id) {
-            group = { ...res.data.updateGroup };
+            group = res.data.updateGroup;
           }
           return group;
         });
         this.sortGroups();
-        this.actionSucceeded('edit', `Updated group: '${update.name}'`);
+        this.actionSucceeded('edit', `Updated group: '${update.name}'`, update);
       } catch (err) {
         this.catchError('edit', err, `Update group failed: '${update.name}'`);
       }

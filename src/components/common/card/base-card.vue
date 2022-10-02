@@ -1,5 +1,6 @@
 <template>
   <div class="block p-6 w-112 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:drop-shadow-2xl" :class="archived ? 'archived' : ''">
+    <ArchivedBadge v-if="archived" class="absolute -mt-3" />
     <div class="flex flex-col">
       <div class="flex gap-4 justify-between">
         <div class="flex grow flex-col">
@@ -39,6 +40,7 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue';
 import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
+import ArchivedBadge from '../badge/archived-badge.vue';
 import { DropdownOption } from '@/modules/common/types';
 
 const props = defineProps({

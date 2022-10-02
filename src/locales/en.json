@@ -5,7 +5,8 @@
     "show-archived": "Show archived",
     "archive": "Archive",
     "unarchive": "Unarchive",
-    "delete": "Delete"
+    "delete": "Delete",
+    "archived": "Archived"
   },
   "modules": {
     "group": {
@@ -27,6 +28,10 @@
           "title": "Groups",
           "create": "Create new group",
           "not-found": "No groups could be found"
+        },
+        "group": {
+          "create": "Create new application",
+          "not-found": "No applications could be found"
         }
       }
     }
