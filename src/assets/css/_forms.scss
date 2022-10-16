@@ -28,26 +28,3 @@
     @apply placeholder-red-300 text-red-900; 
   }
 }
-
-// GDialog Customizing
-.g-dialog-content {
-  width: 100%;
-}
-
-@media(min-width: 540px) {
-  .g-dialog-content {
-    width: 75%;
-  }
-}
-
-@media(min-width: 768px) {
-  .g-dialog-content {
-    width: 65%;
-  }
-}
-
-@media(min-width: 992px) {
-  .g-dialog-content {
-    width: 55%;
-  }
-}

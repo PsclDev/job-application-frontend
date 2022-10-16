@@ -1,0 +1,27 @@
+// GDialog Customizing
+.g-dialog-content {
+  width: 100%;
+}
+
+@media(min-width: 540px) {
+  .g-dialog-content {
+    width: 75%;
+  }
+}
+
+@media(min-width: 768px) {
+  .g-dialog-content {
+    width: 65%;
+  }
+}
+
+@media(min-width: 992px) {
+  .g-dialog-content {
+    width: 55%;
+  }
+}
+
+.g-dialog-fullscreen {
+     width: 80% !important;
+     height: 80% !important;
+}
