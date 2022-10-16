@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseCard :title="group.name" :description="group.description" action="modules.group.components.card.action" :archived="group.isArchived" :dropdown-options="dropdownOptions" @action-clicked="cardAction" @dropdown-clicked="async (option: DropdownOption) => await option.action()" />
+    <BaseCard class="w-112" :title="group.name" title-width="w-80" :description="group.description" action="modules.group.components.card.action" :archived="group.isArchived" :dropdown-options="dropdownOptions" @action-clicked="cardAction" @dropdown-clicked="async (option: DropdownOption) => await option.action()" />
 
     <GDialog v-model="showEditModal">
       <EditGroup :mode="FormMode.EDIT" :group="group" @submit="showEditModal = false" />

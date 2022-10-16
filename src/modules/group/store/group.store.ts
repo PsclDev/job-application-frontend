@@ -181,7 +181,6 @@ export const useGroupStore = defineStore('group', {
     },
   },
   getters: {
-    getGroups: state => state.groups,
     groupById: (state) => {
       return (id: string): GroupInterface | undefined => state.groups.find(group => group.id === id);
     },

@@ -1,13 +1,15 @@
 <template>
-  <div class="block p-6 w-112 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:drop-shadow-2xl" :class="archived ? 'archived' : ''">
+  <div class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:drop-shadow-2xl" :class="archived ? 'archived' : ''">
     <ArchivedBadge v-if="archived" class="absolute -mt-3" />
     <div class="flex flex-col">
       <div class="flex gap-4 justify-between">
         <div class="flex grow flex-col">
-          <p class="text-2xl font-bold">
-            {{ title }}
-          </p>
-          <p class="text-lg">
+          <div class="inline-block" :class="titleWidth ? titleWidth : ''">
+            <p class="text-2xl font-bold truncate">
+              {{ title }}
+            </p>
+          </div>
+          <p v-if="description" class="text-lg">
             {{ description }}
           </p>
         </div>
@@ -48,9 +50,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  titleWidth: {
+    type: String,
+    required: false,
+  },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   action: {
     type: String,

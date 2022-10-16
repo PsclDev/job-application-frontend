@@ -1,5 +1,5 @@
 <template>
-  <ArchivedBadge v-if="group?.isArchived" />
+  <ArchivedBadge v-if="group?.isArchived" class="mt-2" />
 
   <div class="grid grid-cols-6 place-items-center">
     <div class="col-start-2 col-span-4 text-center">
@@ -39,7 +39,7 @@
     </div>
 
     <GDialog v-model="showEditModal">
-      <EditGroup :mode="FormMode.EDIT" :group="group" @submit="showEditModal = false" />
+      <EditGroup :mode="FormMode.EDIT" :group="group" @submit="submitEditModal" />
     </GDialog>
   </div>
 </template>
@@ -74,11 +74,13 @@ const { setBreadcrumbs } = useBreadcrumbs();
 setBreadcrumbs([
   {
     label: 'modules.group.pages.groups.title',
+    value: '',
     translate: true,
     to: '/groups',
   },
   {
     label: group.value!.name,
+    value: id.value,
     translate: false,
     to: `/group/${id.value}`,
   },
@@ -107,6 +109,11 @@ async function unarchiveAction() {
 async function removeAction() {
   await remove(group.value!.id, group.value!.name);
   router.push('/groups');
+}
+
+function submitEditModal() {
+  showEditModal.value = false;
+  group.value = groupById(id.value);
 }
 </script>
 
