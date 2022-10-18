@@ -34,6 +34,20 @@
           "not-found": "No applications could be found"
         }
       }
+    },
+    "file": {
+      "components": {
+        "card": {
+          "action": "Get file"
+        }
+      },
+      "modal": {
+        "group": {
+          "global": "Global files",
+          "group": "Group files",
+          "application": "Application files"
+        }
+      }
     }
   }
 }

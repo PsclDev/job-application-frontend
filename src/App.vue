@@ -1,16 +1,22 @@
 <template>
   <suspense>
-    <router-view />
+    <div @drop.prevent="fileDrop($event)">
+      <router-view />
+    </div>
   </suspense>
 </template>
 
 <script setup lang="ts">
 import { defineComponent } from 'vue';
 import { useGroupStore } from './modules/group/store/group.store';
+import { useFileStore } from './modules/file/store/file.store';
 import { DEFAULT_APP_TITLE } from '@/modules/common/config';
 
 const { loadAll: loadAllGroups } = useGroupStore();
 loadAllGroups();
+
+const { loadAll: loadAllFiles, uploadFiles } = useFileStore();
+loadAllFiles();
 
 defineComponent({
   watch: {
@@ -27,4 +33,8 @@ defineComponent({
     },
   },
 });
+
+function fileDrop(event: DragEvent) {
+  uploadFiles(event.dataTransfer!.files);
+}
 </script>
