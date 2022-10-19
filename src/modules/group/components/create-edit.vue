@@ -34,7 +34,7 @@
 <script lang="ts" setup>
 import { PropType, ref, toRefs } from 'vue';
 import { GroupInterface } from '@shared';
-import { CreateGroupInterface } from '../types/create-group.interface';
+import { CreateGroupInterface } from '../types/group.interface';
 import { useGroupStore } from '../store/group.store';
 import { FormMode } from '@/modules/common/types';
 

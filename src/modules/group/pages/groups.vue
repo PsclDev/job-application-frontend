@@ -51,11 +51,10 @@ import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 const { clearBreadcrumbs } = useBreadcrumbs();
 clearBreadcrumbs();
 
-const groupStore = useGroupStore();
-const { loading, groups: storeGroups } = storeToRefs(groupStore);
+const { loading, groups: storeGroups } = storeToRefs(useGroupStore());
 
 const showCreateModal = ref(false);
-const showArchivedStorageKey = 'show-archived';
+const showArchivedStorageKey = 'groups-show-archived';
 const showArchived = ref(false);
 
 function archivedChanged() {

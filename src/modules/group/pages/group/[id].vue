@@ -34,10 +34,6 @@
       {{ $t('modules.group.pages.group.create') }}
     </button>
 
-    <div class="mt-16">
-      applications
-    </div>
-
     <GDialog v-model="showEditModal">
       <EditGroup :mode="FormMode.EDIT" :group="group" @submit="submitEditModal" />
     </GDialog>
@@ -52,6 +48,7 @@ import { useGroupStore } from '../../store/group.store';
 import EditGroup from '../../components/create-edit.vue';
 import { FormMode } from '@/modules/common/types';
 import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
+import Applications from '@/modules/application/components/applications.vue';
 
 const props = defineProps({
   id: {
@@ -62,9 +59,14 @@ const props = defineProps({
 const { id } = toRefs(props);
 
 const router = useRouter();
-const { groupById, archive, unarchive, remove } = useGroupStore();
+const { loadOne, groupById, archive, unarchive, remove } = useGroupStore();
 
 const group = ref(groupById(id.value));
+
+if (!group.value) {
+  await loadOne(id.value);
+  group.value = groupById(id.value);
+}
 
 if (!group.value) {
   router.push('/groups');

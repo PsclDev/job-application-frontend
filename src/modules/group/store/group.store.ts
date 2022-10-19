@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { GroupInterface } from '@shared';
-import { CreateGroupInterface, UpdateGroupInterface } from '../types/create-group.interface';
+import { CreateGroupInterface, UpdateGroupInterface } from '../types/group.interface';
 import { Logger } from '@/modules/common/utils/logger';
 import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
 
@@ -44,6 +44,26 @@ export const useGroupStore = defineStore('group', {
         this.actionSucceeded('loadAll', 'Loaded all groups', res.data.groups);
       } catch (err) {
         this.catchError('loadAll', err, 'Couldn\'t load groups');
+      }
+    },
+    async loadOne(id: string) {
+      try {
+        this.loading = true;
+
+        const res = await axios.post<{ group: GroupInterface }>('', {
+          query: `
+          query {
+            group(id: "${id}") {
+              ${this.resultData}
+            }
+          }
+          `,
+        });
+        this.groups.push(res.data.group);
+        this.sortGroups();
+        this.actionSucceeded('loadAll', `Loaded group: ${res.data.group.name}`, res.data.group);
+      } catch (err) {
+        this.catchError('loadAll', err, `Couldn\'t load group by id ${id}`);
       }
     },
     async create(group: CreateGroupInterface) {
