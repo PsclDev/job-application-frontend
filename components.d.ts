@@ -6,7 +6,6 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ArchivedBadge: typeof import('./src/components/common/badge/archived-badge.vue')['default']
-    BaseButton: typeof import('./src/components/common/buttons/BaseButton.vue')['default']
     BaseCard: typeof import('./src/components/common/card/base-card.vue')['default']
     LoadingIcon: typeof import('./src/components/common/buttons/LoadingIcon.vue')['default']
     Notification: typeof import('./src/components/common/NotificationPlugin/Notification.vue')['default']
