@@ -8,6 +8,17 @@
     "delete": "Delete",
     "archived": "Archived"
   },
+  "enum": {
+    "state": {
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "INTERVIEW": "Interview",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "NOT_INTERESTED": "Not interested",
+      "NO_ANSWER": "No answer"
+    }
+  },
   "modules": {
     "group": {
       "components": {
@@ -30,8 +41,32 @@
           "not-found": "No groups could be found"
         },
         "group": {
-          "create": "Create new application",
+          "create": "Create new application"
+        }
+      }
+    },
+    "application": {
+      "components": {
+        "applications": {
           "not-found": "No applications could be found"
+        },
+        "application": {
+          "card-action": "View Application"
+        }
+      },
+      "modal": {
+        "form": {
+          "create": "Create Application",
+          "edit": "Edit Application",
+          "name": "Name",
+          "description": "Description",
+          "company": "Company Name",
+          "job-url": "Url to the job",
+          "contact-name": "Contact Name",
+          "contact-position": "Contact's Position",
+          "contact-email": "Contact's Email",
+          "status-state": "Latest State",
+          "status-date": "Date of the latest State"
         }
       }
     },

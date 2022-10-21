@@ -30,12 +30,20 @@
   </div>
 
   <div class="flex flex-col justify-center items-center mt-10">
-    <button class="px-6 py-2 w-112 text-sm rounded shadow bg-emerald-100 hover:bg-emerald-300 text-emerald-500 hover:text-emerald-700">
+    <button class="px-6 py-2 w-112 text-sm rounded shadow bg-emerald-100 hover:bg-emerald-300 text-emerald-500 hover:text-emerald-700" @click="showCreateApplicaitonModal = true">
       {{ $t('modules.group.pages.group.create') }}
     </button>
 
+    <div class="mt-16">
+      <Applications :group-id="id" />
+    </div>
+
     <GDialog v-model="showEditModal">
       <EditGroup :mode="FormMode.EDIT" :group="group" @submit="submitEditModal" />
+    </GDialog>
+
+    <GDialog v-model="showCreateApplicaitonModal">
+      <CreateApplication :mode="FormMode.CREATE" :group-id="id" />
     </GDialog>
   </div>
 </template>
@@ -46,6 +54,7 @@ import { useRouter } from 'vue-router';
 import { ArchiveIcon, EditIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { useGroupStore } from '../../store/group.store';
 import EditGroup from '../../components/create-edit.vue';
+import CreateApplication from '@/modules/application/components/create-edit.vue';
 import { FormMode } from '@/modules/common/types';
 import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 import Applications from '@/modules/application/components/applications.vue';
@@ -89,6 +98,7 @@ setBreadcrumbs([
 ]);
 
 const showEditModal = ref(false);
+const showCreateApplicaitonModal = ref(false);
 const showArchivedStorageKey = 'show-archived';
 const showArchived = ref(false);
 

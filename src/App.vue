@@ -10,10 +10,14 @@
 import { defineComponent } from 'vue';
 import { useGroupStore } from './modules/group/store/group.store';
 import { useFileStore } from './modules/file/store/file.store';
+import { useApplicationStore } from './modules/application/store/application.store';
 import { DEFAULT_APP_TITLE } from '@/modules/common/config';
 
 const { loadAll: loadAllGroups } = useGroupStore();
 loadAllGroups();
+
+const { loadAll: loadAllApplications } = useApplicationStore();
+loadAllApplications();
 
 const { loadAll: loadAllFiles, uploadFiles } = useFileStore();
 loadAllFiles();
