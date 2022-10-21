@@ -8,7 +8,7 @@ declare module '@vue/runtime-core' {
     ArchivedBadge: typeof import('./src/components/common/badge/archived-badge.vue')['default']
     BaseCard: typeof import('./src/components/common/card/base-card.vue')['default']
     LoadingIcon: typeof import('./src/components/common/buttons/LoadingIcon.vue')['default']
-    Notification: typeof import('./src/components/common/NotificationPlugin/Notification.vue')['default']
+    Notification: typeof import('./src/components/common/NotificationPlugin/notification.vue')['default']
     Notifications: typeof import('./src/components/common/NotificationPlugin/Notifications.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
