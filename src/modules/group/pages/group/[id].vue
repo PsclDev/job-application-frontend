@@ -1,13 +1,13 @@
 <template>
-  <ArchivedBadge v-if="group?.isArchived" class="mt-2" />
+  <ArchivedBadge v-if="group.isArchived" class="mt-2" />
 
   <div class="grid grid-cols-6 place-items-center">
     <div class="col-start-2 col-span-4 text-center">
       <p class="text-3xl font-extrabold text-gray-900">
-        {{ group?.name }}
+        {{ group.name }}
       </p>
       <p class="text-xl font-extrabold text-gray-900">
-        {{ group?.description }}
+        {{ group.description }}
       </p>
     </div>
 
@@ -16,7 +16,7 @@
         <button class="text-emerald-200 hover:text-emerald-500" @click="showEditModal = true">
           <EditIcon size="1.5x" />
         </button>
-        <button v-if="group?.isArchived" class="text-emerald-200 hover:text-emerald-500" @click="unarchiveAction">
+        <button v-if="group.isArchived" class="text-emerald-200 hover:text-emerald-500" @click="unarchiveAction">
           <InboxIcon size="1.5x" />
         </button>
         <button v-else class="text-emerald-200 hover:text-emerald-500" @click="archiveAction">
@@ -37,21 +37,22 @@
     <div class="mt-16">
       <Applications :group-id="id" />
     </div>
-
-    <GDialog v-model="showEditModal">
-      <EditGroup :mode="FormMode.EDIT" :group="group" @submit="submitEditModal" />
-    </GDialog>
-
-    <GDialog v-model="showCreateApplicaitonModal">
-      <CreateApplication :mode="FormMode.CREATE" :group-id="id" />
-    </GDialog>
   </div>
+
+  <GDialog v-model="showEditModal">
+    <EditGroup :mode="FormMode.EDIT" :group="group" @submit="submitEditModal" />
+  </GDialog>
+
+  <GDialog v-model="showCreateApplicaitonModal">
+    <CreateApplication :mode="FormMode.CREATE" :group-id="id" />
+  </GDialog>
 </template>
 
 <script lang="ts" setup>
 import { ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { ArchiveIcon, EditIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
+import { GroupInterface } from '@shared';
 import { useGroupStore } from '../../store/group.store';
 import EditGroup from '../../components/create-edit.vue';
 import CreateApplication from '@/modules/application/components/create-edit.vue';
@@ -70,11 +71,11 @@ const { id } = toRefs(props);
 const router = useRouter();
 const { loadOne, groupById, archive, unarchive, remove } = useGroupStore();
 
-const group = ref(groupById(id.value));
+const group = ref<GroupInterface>(groupById(id.value)!);
 
 if (!group.value) {
   await loadOne(id.value);
-  group.value = groupById(id.value);
+  group.value = groupById(id.value)!;
 }
 
 if (!group.value) {
@@ -90,7 +91,7 @@ setBreadcrumbs([
     to: '/groups',
   },
   {
-    label: group.value!.name,
+    label: group.value.name,
     value: id.value,
     translate: false,
     to: `/group/${id.value}`,
@@ -111,21 +112,21 @@ if (localStorage.getItem(showArchivedStorageKey)) {
 }
 
 async function archiveAction() {
-  await archive(group.value!.id, group.value!.name);
+  await archive(group.value.id, group.value.name);
 }
 
 async function unarchiveAction() {
-  await unarchive(group.value!.id, group.value!.name);
+  await unarchive(group.value.id, group.value.name);
 }
 
 async function removeAction() {
-  await remove(group.value!.id, group.value!.name);
+  await remove(group.value.id, group.value.name);
   router.push('/groups');
 }
 
 function submitEditModal() {
   showEditModal.value = false;
-  group.value = groupById(id.value);
+  group.value = groupById(id.value)!;
 }
 </script>
 
