@@ -6,19 +6,20 @@
     "node": ">=16"
   },
   "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "lint": "eslint .",
+    "precommit": "lint-staged",
+    "prepare": "husky install",
+    "sort-json": "sort-json src/locales/en.json",
     "start:dev": "vite --host",
     "start:preview": "vite preview",
-    "build": "vue-tsc --noEmit && vite build",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck",
-    "lint": "eslint .",
-    "prepare": "husky install",
-    "precommit": "lint-staged"
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.1",
     "@formkit/themes": "^1.0.0-beta.8",
     "@formkit/vue": "^1.0.0-beta.11",
-    "@vueup/vue-quill": "^1.0.0-beta.9",
+    "@vueup/vue-quill": "^1.0.0-beta.11",
     "@zhuowenli/vue-feather-icons": "^5.0.2",
     "axios": "^0.24.0",
     "date-fns": "^2.28.0",
@@ -27,6 +28,7 @@
     "lodash-es": "^4.17.21",
     "luxon": "^3.0.3",
     "pinia": "^2.0.14",
+    "sort-json": "^2.0.1",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.35",
     "vue-i18n": "^9.2.0-beta.17",
