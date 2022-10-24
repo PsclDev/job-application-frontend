@@ -5,9 +5,10 @@
     </p>
 
     <FormKit
+      id="create-edit-group"
       v-model="form"
       type="form"
-      :submit-label="$t(mode === 'CREATE' ? 'common.create' : 'common.edit')"
+      :submit-label="$t(mode === 'CREATE' ? 'common.create' : 'common.update')"
       @submit="onSubmit"
     >
       <FormKit
@@ -34,6 +35,7 @@
 <script lang="ts" setup>
 import { PropType, ref, toRefs } from 'vue';
 import { GroupInterface } from '@shared';
+import { reset } from '@formkit/core';
 import { CreateGroupInterface } from '../types/group.interface';
 import { useGroupStore } from '../store/group.store';
 import { FormMode } from '@/modules/common/types';
@@ -72,6 +74,7 @@ async function onSubmit() {
     await edit(group!.value!.id, form.value);
   }
 
+  reset('create-edit-group');
   emit('submit');
 }
 </script>

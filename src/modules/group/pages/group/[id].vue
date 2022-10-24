@@ -100,16 +100,6 @@ setBreadcrumbs([
 
 const showEditModal = ref(false);
 const showCreateApplicaitonModal = ref(false);
-const showArchivedStorageKey = 'show-archived';
-const showArchived = ref(false);
-
-function archivedChanged() {
-  localStorage.setItem(showArchivedStorageKey, showArchived.value.toString());
-}
-
-if (localStorage.getItem(showArchivedStorageKey)) {
-  showArchived.value = localStorage.getItem(showArchivedStorageKey) === 'true';
-}
 
 async function archiveAction() {
   await archive(group.value.id, group.value.name);
