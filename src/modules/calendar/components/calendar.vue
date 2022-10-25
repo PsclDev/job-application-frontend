@@ -17,6 +17,7 @@
               class="cursor-pointer"
               :class="attr.customData.class"
               @click="showDetail(attr.customData.id)"
+              @auxclick="copyMeetingLink(attr.customData.link)"
             >
               <p
                 class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
@@ -36,9 +37,11 @@
 import { ref } from 'vue';
 import { DateTime } from 'luxon';
 import { MeetingInterface } from '@shared';
+import { useRouter } from 'vue-router';
 import { event } from '../types/event.interface';
 import { useMeetingStore } from '@/modules/meeting/store/meeting.store';
 import { isUpcoming } from '@/modules/common/utils';
+import useClipboard from '@/modules/common/hooks/useClipboard';
 
 const { meetings } = useMeetingStore();
 
@@ -52,7 +55,6 @@ const eventColors = [
   'zinc',
   'neutral',
   'stone',
-  'red',
   'orange',
   'amber',
   'yellow',
@@ -78,8 +80,10 @@ function generateAttributes() {
   const events: event[] = [{
     key,
     customData: {
+      id: '',
       title: '- TODAY -',
       time: '',
+      link: 'https://letmegooglethat.com/?q=how+to+get+rich%3F',
       class: 'bg-red-600 text-white font-bold',
     },
     dates: new Date(DateTime.now().toJSDate()),
@@ -94,6 +98,7 @@ function generateAttributes() {
         id: meeting.id,
         title: meeting.title,
         time: DateTime.fromJSDate(new Date(meeting.date)).toFormat('HH:mm'),
+        link: meeting.link,
         class: `bg-${color}-600 text-white ${isUpcoming(meeting.date, false) ? '' : 'opacity-25'}`,
       },
       dates: new Date(meeting.date),
@@ -114,7 +119,19 @@ function generateColor(applicationId: string) {
   return colorMapping[applicationId];
 }
 
+const router = useRouter();
+
 function showDetail(id: string) {
-  console.log('showDetail(): TODO');
+  if (id === '') {
+    return;
+  }
+
+  router.push(`/meeting/${id}`);
+}
+
+const { copyTo } = useClipboard();
+
+function copyMeetingLink(link: string) {
+  copyTo(link, 'Copied meeting link to clipboard!');
 }
 </script>
