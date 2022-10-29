@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { ApplicationInterface } from '@shared';
+import { ApplicationInterface, StateEnum } from '@shared';
+import { DateTime } from 'luxon';
 import { CreateApplicationInterface, UpdateApplicationInterface } from '../types/application.interface';
 import { Logger } from '@/modules/common/utils/logger';
 import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
@@ -55,6 +56,26 @@ export const useApplicationStore = defineStore('application', {
         this.catchError('loadAll', err, 'Couldn\'t load applications');
       }
     },
+    async loadOne(id: string) {
+      try {
+        this.loading = true;
+
+        const res = await axios.post<{ application: ApplicationInterface }>('', {
+          query: `
+          query {
+            application(id: "${id}") {
+              ${this.resultData}
+            }
+          }
+          `,
+        });
+        this.applications.push(res.data.application);
+        this.sortApplications();
+        this.actionSucceeded('loadAll', `Loaded application: ${res.data.application.name}`, res.data.application);
+      } catch (err) {
+        this.catchError('loadAll', err, `Couldn\'t load application by id ${id}`);
+      }
+    },
     async create(groupId: string, application: CreateApplicationInterface) {
       try {
         const res = await axios.post<{ createApplication: ApplicationInterface }>('', {
@@ -67,6 +88,7 @@ export const useApplicationStore = defineStore('application', {
                 description: "${application.description}"
                 company: "${application.company}"
                 jobUrl: "${application.jobUrl}"
+                notes: ""
                 contact: {
                     name: "${application.contact.name}"
                     position: "${application.contact.position}"
@@ -128,6 +150,83 @@ export const useApplicationStore = defineStore('application', {
         this.actionSucceeded('edit', `Updated application: '${update.name}'`, update);
       } catch (err) {
         this.catchError('edit', err, `Update application failed: '${update.name}'`);
+      }
+    },
+    async editNotes(id: string, notes: string) {
+      try {
+        const res = await axios.post<{ updateApplication: ApplicationInterface }>('', {
+          query: `
+          mutation {
+            updateApplicationNotes(
+              id: "${id}",
+              notes: "${JSON.stringify(notes).slice(1, -1)}"
+            ) {
+              ${this.resultData}
+            }
+          }
+          `,
+        });
+        this.applications = this.applications.map((application) => {
+          if (application.id === id) {
+            application = res.data.updateApplication;
+          }
+          return application;
+        });
+        this.actionSucceeded('editNotes', 'Updated notes', res.data.updateApplication);
+      } catch (err) {
+        this.catchError('editNotes', err, 'Failed to update notes');
+      }
+    },
+    async move(id: string, groupId: string) {
+      try {
+        const res = await axios.post<{ moveApplication: ApplicationInterface }>('', {
+          query: `
+          mutation {
+            moveApplication(
+              id: "${id}"
+              newGroupId: "${groupId}",
+            ) {
+              ${this.resultData}
+            }
+          }
+          `,
+        });
+        this.applications = this.applications.map((application) => {
+          if (application.id === id) {
+            application = res.data.moveApplication;
+          }
+          return application;
+        });
+        this.sortApplications();
+        this.actionSucceeded('move', 'Moved into new group');
+      } catch (err) {
+        this.catchError('move', err, 'Update to move application into new group');
+      }
+    },
+    async changeStatus(id: string, status: { state: string; date: string }) {
+      try {
+        await axios.post('', {
+          query: `
+          mutation {
+            updateStatus(
+              id: "${id}"
+              input: {
+                state: "${status.state}"
+                date: "${status.date}"
+              }
+            )
+          }
+          `,
+        });
+        this.applications = this.applications.map((application) => {
+          if (application.id === id) {
+            application.status.push({ state: StateEnum[status.state], date: DateTime.fromFormat(status.date, getFormDateFormat()).toJSDate() });
+          }
+          return application;
+        });
+        this.actionSucceeded('changeStatus', 'Updated status');
+      } catch (err) {
+        this.catchError('changeStatus', err, 'Failed to update status');
       }
     },
     async archive(id: string, name: string) {

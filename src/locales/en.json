@@ -1,72 +1,66 @@
 {
   "common": {
-    "create": "Create",
-    "edit": "Edit",
-    "show-archived": "Show archived",
     "archive": "Archive",
-    "unarchive": "Unarchive",
+    "archived": "Archived",
+    "create": "Create",
     "delete": "Delete",
-    "archived": "Archived"
+    "edit": "Edit",
+    "move": "Move",
+    "show-archived": "Show archived",
+    "unarchive": "Unarchive",
+    "update": "Update"
   },
   "enum": {
     "state": {
-      "PENDING": "Pending",
-      "SENT": "Sent",
-      "INTERVIEW": "Interview",
-      "ACCEPTED": "Accepted",
-      "REJECTED": "Rejected",
-      "NOT_INTERESTED": "Not interested",
-      "NO_ANSWER": "No answer"
+      "accepted": "Accepted",
+      "interview": "Interview",
+      "no_answer": "No answer",
+      "not_interested": "Not interested",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "sent": "Sent"
     }
   },
   "modules": {
-    "group": {
+    "application": {
       "components": {
-        "card": {
-          "action": "View group"
+        "application": {
+          "card-action": "View Application"
+        },
+        "applications": {
+          "not-found": "No applications could be found"
         }
       },
       "modal": {
+        "change": {
+          "date": "Date",
+          "select-state": "select state",
+          "state": "New State",
+          "title": "Change Status"
+        },
         "form": {
-          "create": "Create Group",
-          "edit": "Edit Group",
+          "company": "Company Name",
+          "contact-email": "Contact's Email",
+          "contact-name": "Contact Name",
+          "contact-position": "Contact's Position",
+          "create": "Create Application",
+          "description": "Description",
+          "edit": "Edit Application",
+          "job-url": "Url to the job",
           "name": "Name",
-          "description": "Description"
+          "status-date": "Date of the latest State",
+          "status-state": "Latest State"
+        },
+        "move": {
+          "new": "New group",
+          "select": "Select new group",
+          "title": "Move into another group"
         }
       },
       "pages": {
-        "groups": {
-          "title": "Groups",
-          "create": "Create new group",
-          "not-found": "No groups could be found"
-        },
-        "group": {
-          "create": "Create new application"
-        }
-      }
-    },
-    "application": {
-      "components": {
-        "applications": {
-          "not-found": "No applications could be found"
-        },
         "application": {
-          "card-action": "View Application"
-        }
-      },
-      "modal": {
-        "form": {
-          "create": "Create Application",
-          "edit": "Edit Application",
-          "name": "Name",
-          "description": "Description",
-          "company": "Company Name",
-          "job-url": "Url to the job",
-          "contact-name": "Contact Name",
-          "contact-position": "Contact's Position",
-          "contact-email": "Contact's Email",
-          "status-state": "Latest State",
-          "status-date": "Date of the latest State"
+          "change-status": "Change status",
+          "create-meeting": "Create new meeting"
         }
       }
     },
@@ -78,9 +72,56 @@
       },
       "modal": {
         "group": {
+          "application": "Application files",
           "global": "Global files",
-          "group": "Group files",
-          "application": "Application files"
+          "group": "Group files"
+        }
+      }
+    },
+    "group": {
+      "components": {
+        "card": {
+          "action": "View group"
+        }
+      },
+      "modal": {
+        "form": {
+          "create": "Create Group",
+          "description": "Description",
+          "edit": "Edit Group",
+          "name": "Name"
+        }
+      },
+      "pages": {
+        "group": {
+          "create": "Create new application"
+        },
+        "groups": {
+          "create": "Create new group",
+          "not-found": "No groups could be found",
+          "title": "Groups"
+        }
+      }
+    },
+    "meeting": {
+      "components": {
+        "card": {
+          "action": "View meeting"
+        }
+      },
+      "modal": {
+        "form": {
+          "add-attendee": "Add Attendee",
+          "attendee": "Attendee",
+          "attendee-email": "Email",
+          "attendee-name": "Name",
+          "attendee-position": "Position",
+          "attendees": "Attendees",
+          "create": "Create Meeting",
+          "date": "Date",
+          "edit": "Edit Meeting",
+          "link": "Link",
+          "title": "Title"
         }
       }
     }

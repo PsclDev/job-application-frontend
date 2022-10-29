@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Notifications: typeof import('./src/components/common/NotificationPlugin/Notifications.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StatusBadge: typeof import('./src/components/common/badge/status-badge.vue')['default']
     TheBreadcrumbs: typeof import('./src/components/common/breadcrumbs/TheBreadcrumbs.vue')['default']
   }
 }

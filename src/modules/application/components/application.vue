@@ -5,6 +5,10 @@
     <GDialog v-model="showEditModal">
       <EditApplication :mode="FormMode.EDIT" :application="application" @submit="showEditModal = false" />
     </GDialog>
+
+    <GDialog v-model="showMoveModal">
+      <MoveApplication :application-id="application.id" :group-id="application.groupId" @submit="showMoveModal = false" />
+    </GDialog>
   </div>
 </template>
 
@@ -13,7 +17,8 @@ import { PropType, ref, toRefs, watch } from 'vue';
 import { ApplicationInterface } from '@shared';
 import { useRouter } from 'vue-router';
 import { useApplicationStore } from '../store/application.store';
-import EditApplication from '../components/create-edit.vue';
+import EditApplication from './create-edit.vue';
+import MoveApplication from './move-application.vue';
 import { DropdownOption, FormMode } from '@/modules/common/types';
 
 const props = defineProps({
@@ -25,6 +30,7 @@ const props = defineProps({
 
 const router = useRouter();
 const showEditModal = ref(false);
+const showMoveModal = ref(false);
 
 const { application } = toRefs(props);
 const { archive, unarchive, remove } = useApplicationStore();
@@ -45,6 +51,10 @@ function generateDropdownOptions() {
           action: edit,
         },
         {
+          label: 'common.move',
+          action: move,
+        },
+        {
           label: 'common.archive',
           action: archiveAction,
         },
@@ -62,11 +72,15 @@ watch(() => application.value.isArchived, () => {
 });
 
 function cardAction() {
-  router.push(`group/${application.value.id}`);
+  router.push(`/application/${application.value.id}`);
 }
 
 function edit() {
   showEditModal.value = true;
+}
+
+function move() {
+  showMoveModal.value = true;
 }
 
 async function archiveAction() {

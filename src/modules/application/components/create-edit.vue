@@ -5,9 +5,10 @@
     </p>
 
     <FormKit
+      id="create-edit-application"
       v-model="form"
       type="form"
-      :submit-label="$t(mode === 'CREATE' ? 'common.create' : 'common.edit')"
+      :submit-label="$t(mode === 'CREATE' ? 'common.create' : 'common.update')"
       @submit="onSubmit"
     >
       <FormKit
@@ -51,29 +52,31 @@
         type="group"
         name="contact"
       >
-        <FormKit
-          type="text"
-          name="name"
-          :label="$t('modules.application.modal.form.contact-name')"
-          minlength="3"
-          maxlength="50"
-          validation-visibility="dirty"
-        />
-        <FormKit
-          type="text"
-          name="position"
-          :label="$t('modules.application.modal.form.contact-position')"
-          minlength="2"
-          maxlength="50"
-          validation-visibility="dirty"
-        />
-        <FormKit
-          type="email"
-          name="email"
-          :label="$t('modules.application.modal.form.contact-email')"
-          validation-visibility="live"
-          validation="email"
-        />
+        <div class="flex justify-between">
+          <FormKit
+            type="text"
+            name="name"
+            :label="$t('modules.application.modal.form.contact-name')"
+            minlength="3"
+            maxlength="50"
+            validation-visibility="dirty"
+          />
+          <FormKit
+            type="text"
+            name="position"
+            :label="$t('modules.application.modal.form.contact-position')"
+            minlength="2"
+            maxlength="50"
+            validation-visibility="dirty"
+          />
+          <FormKit
+            type="email"
+            name="email"
+            :label="$t('modules.application.modal.form.contact-email')"
+            validation-visibility="live"
+            validation="email"
+          />
+        </div>
       </FormKit>
 
       <FormKit
@@ -105,12 +108,16 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, getCurrentInstance, ref, toRefs } from 'vue';
+import { PropType, ref, toRefs } from 'vue';
 import { ApplicationInterface, StateEnum } from '@shared';
 import { DateTime } from 'luxon';
+import { reset } from '@formkit/vue';
 import { CreateApplicationInterface } from '../types/application.interface';
 import { useApplicationStore } from '../store/application.store';
+import { getLatestStatus } from '../utils';
+import { getStatusFormOptions } from '../utils/status-options';
 import { FormMode } from '@/modules/common/types';
+import { getFormDateFormat } from '@/modules/common/utils';
 
 const props = defineProps({
   mode: {
@@ -130,12 +137,7 @@ const emit = defineEmits(['submit']);
 
 const { mode, groupId, application } = toRefs(props);
 
-const stateOptions = ref({} as any);
-const app = getCurrentInstance();
-const translation = app?.appContext.config.globalProperties.$t;
-Object.keys(StateEnum).forEach((s: string) => {
-  stateOptions.value[s] = translation(`enum.state.${s}`);
-});
+const stateOptions = ref(getStatusFormOptions());
 
 const initialState = ref<CreateApplicationInterface>({
   name: '',
@@ -143,13 +145,14 @@ const initialState = ref<CreateApplicationInterface>({
   company: '',
   jobUrl: '',
   contact: {
+    localId: 0,
     name: '',
     position: '',
     email: '',
   },
   status: {
     state: StateEnum.PENDING,
-    date: DateTime.now().toFormat('yyyy-MM-dd'),
+    date: DateTime.now().toFormat(getFormDateFormat()),
   },
 });
 
@@ -161,7 +164,7 @@ const form = ref<CreateApplicationInterface>(
 
 function applicationAsForm(application: ApplicationInterface): CreateApplicationInterface {
   const { name, description, company, jobUrl, contact, status } = application;
-  const latestStatus = status.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+  const latestStatus = getLatestStatus(status);
 
   return {
     name,
@@ -171,22 +174,21 @@ function applicationAsForm(application: ApplicationInterface): CreateApplication
     contact,
     status: {
       state: latestStatus.state,
-      date: DateTime.fromJSDate(new Date(latestStatus.date)).toFormat('yyyy-MM-dd'),
+      date: DateTime.fromJSDate(new Date(latestStatus.date)).toFormat(getFormDateFormat()),
     },
   };
 }
 
-const groupStore = useApplicationStore();
-const { create, edit } = groupStore;
+const { create, edit } = useApplicationStore();
 
 async function onSubmit() {
-  console.log(form.value);
   if (mode.value === FormMode.CREATE) {
     await create(groupId!.value!, form.value);
   } else {
     await edit(application!.value!.id, form.value);
   }
 
+  reset('create-edit-application');
   emit('submit');
 }
 </script>
