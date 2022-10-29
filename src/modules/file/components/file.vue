@@ -94,7 +94,3 @@ async function onSubmit() {
   showEditModal.value = false;
 }
 </script>
-
-<route lang="yaml">
-name: file
-</route>

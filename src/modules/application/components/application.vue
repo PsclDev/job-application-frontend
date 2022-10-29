@@ -95,7 +95,3 @@ async function removeAction() {
   await remove(application.value.id, application.value.name);
 }
 </script>
-
-<route lang="yaml">
-name: application
-</route>

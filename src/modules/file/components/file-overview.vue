@@ -47,7 +47,3 @@ function sortFiles() {
 
 sortFiles();
 </script>
-
-<route lang="yaml">
-name: file-overview
-</route>

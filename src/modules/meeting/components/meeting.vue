@@ -63,7 +63,3 @@ async function removeAction() {
   await remove(meeting.value.id, meeting.value.title);
 }
 </script>
-
-<route lang="yaml">
-name: meeting
-</route>

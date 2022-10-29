@@ -25,7 +25,3 @@ const meetingsLength = ref<number>(meetings.value.filter(meeting => isUpcoming(m
 
 const showCalendarModal = ref(false);
 </script>
-
-<route lang="yaml">
-name: calendar-header
-</route>

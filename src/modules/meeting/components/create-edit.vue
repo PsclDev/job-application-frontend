@@ -91,6 +91,7 @@ import { CreateMeetingInterface } from '../types/meeting.interface';
 import { useMeetingStore } from '../store/meeting.store';
 import { FormMode } from '@/modules/common/types';
 import { CreatePersonInterface } from '@/modules/application/types/person.interface';
+import { getFormDateTimeFormat } from '@/modules/common/utils';
 
 const props = defineProps({
   mode: {
@@ -120,7 +121,7 @@ const initialState = ref<CreateMeetingInterface>({
   title: '',
   link: '',
   attendees: [],
-  date: DateTime.now().toFormat('yyyy-MM-dd\'T\'HH:mm'),
+  date: DateTime.now().toFormat(getFormDateTimeFormat()),
 });
 const tempAttendees = ref<CreatePersonInterface[]>([]);
 let attendeeAmount = 0;
@@ -135,7 +136,7 @@ function meetingAsForm(meeting: MeetingInterface): CreateMeetingInterface {
   const { attendees, date, link, title } = meeting;
   const formObj: any = {
     attendees: [] as CreatePersonInterface[],
-    date: DateTime.fromJSDate(new Date(date)).toFormat('yyyy-MM-dd\'T\'HH:mm'),
+    date: DateTime.fromJSDate(new Date(date)).toFormat(getFormDateTimeFormat()),
     link,
     title,
   };
@@ -182,7 +183,3 @@ async function onSubmit() {
   emit('submit');
 }
 </script>
-
-<route lang="yaml">
-name: create-edit-meeting
-</route>

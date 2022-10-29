@@ -30,7 +30,3 @@ watch(() => getBreadcrumbs().value, () => {
 
 const showFileModal = ref(false);
 </script>
-
-<route lang="yaml">
-name: file-header
-</route>

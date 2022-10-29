@@ -57,7 +57,3 @@ const applications = computed(() => {
   return showArchived.value ? applicationsByGroupId.value(groupId.value) : applicationsByGroupId.value(groupId.value).filter(application => !application.isArchived);
 });
 </script>
-
-<route lang="yaml">
-name: groups
-</route>

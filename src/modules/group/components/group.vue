@@ -81,7 +81,3 @@ async function removeAction() {
   await remove(group.value.id, group.value.name);
 }
 </script>
-
-<route lang="yaml">
-name: group
-</route>

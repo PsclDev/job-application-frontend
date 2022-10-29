@@ -29,7 +29,3 @@ const props = defineProps({
 
 const { title, files } = toRefs(props);
 </script>
-
-<route lang="yaml">
-name: file-group
-</route>

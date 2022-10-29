@@ -192,7 +192,3 @@ async function onSubmit() {
   emit('submit');
 }
 </script>
-
-<route lang="yaml">
-name: create-edit-group
-</route>

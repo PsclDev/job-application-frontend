@@ -152,9 +152,9 @@ export const useMeetingStore = defineStore('meeting', {
           }
           return meeting;
         });
-        this.actionSucceeded('edit', 'Updated notes', res.data.updateMeeting);
+        this.actionSucceeded('editNotes', 'Updated notes', res.data.updateMeeting);
       } catch (err) {
-        this.catchError('edit', err, 'Failed to update notes');
+        this.catchError('editNotes', err, 'Failed to update notes');
       }
     },
     async remove(id: string, name: string) {
