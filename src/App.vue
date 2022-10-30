@@ -8,11 +8,11 @@
 
 <script setup lang="ts">
 import { defineComponent } from 'vue';
-import { useGroupStore } from '@/modules/group/store/group.store';
-import { useFileStore } from '@/modules/file/store/file.store';
-import { useApplicationStore } from '@/modules/application/store/application.store';
-import { DEFAULT_APP_TITLE } from '@/modules/common/config';
-import { useMeetingStore } from '@/modules/meeting/store/meeting.store';
+import { useGroupStore } from '@module/group/store/group.store';
+import { useFileStore } from '@module/file/store/file.store';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { DEFAULT_APP_TITLE } from '@module/common/config';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
 
 const { loadAll: loadAllGroups } = useGroupStore();
 loadAllGroups();

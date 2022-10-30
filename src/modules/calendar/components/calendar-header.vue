@@ -15,9 +15,9 @@
 import { CalendarIcon } from '@zhuowenli/vue-feather-icons';
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import { isUpcoming } from '@module/common/utils';
 import Calendar from './calendar.vue';
-import { useMeetingStore } from '@/modules/meeting/store/meeting.store';
-import { isUpcoming } from '@/modules/common/utils';
 
 const { meetings } = storeToRefs(useMeetingStore());
 

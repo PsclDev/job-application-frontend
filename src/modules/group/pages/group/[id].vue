@@ -53,12 +53,12 @@ import { ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { ArchiveIcon, EditIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { GroupInterface } from '@shared';
-import { useGroupStore } from '../../store/group.store';
-import EditGroup from '../../components/create-edit.vue';
-import CreateApplication from '@/modules/application/components/create-edit.vue';
-import { FormMode } from '@/modules/common/types';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
-import Applications from '@/modules/application/components/applications.vue';
+import { useGroupStore } from '@module/group/store/group.store';
+import EditGroup from '@module/group/components/create-edit.vue';
+import CreateApplication from '@module/application/components/create-edit.vue';
+import { FormMode } from '@module/common/types';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
+import Applications from '@module/application/components/applications.vue';
 
 const props = defineProps({
   id: {

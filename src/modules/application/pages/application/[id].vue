@@ -81,17 +81,17 @@ import { useRouter } from 'vue-router';
 import { ArchiveIcon, EditIcon, ExternalLinkIcon, FolderIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { ApplicationInterface, MeetingInterface } from '@shared';
 import { storeToRefs } from 'pinia';
-import { getLatestStatus } from '../../utils';
-import ChangeStatus from '../../components/change-status.vue';
-import EditApplication from '@/modules/application/components/create-edit.vue';
-import MoveApplication from '@/modules/application/components/move-application.vue';
-import { FormMode } from '@/modules/common/types';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
-import { useApplicationStore } from '@/modules/application/store/application.store';
-import { useGroupStore } from '@/modules/group/store/group.store';
-import { useMeetingStore } from '@/modules/meeting/store/meeting.store';
-import Meeting from '@/modules/meeting/components/meeting.vue';
-import CreateMeeting from '@/modules/meeting/components/create-edit.vue';
+import { getLatestStatus } from '@module/application/utils';
+import ChangeStatus from '@module/application/components/change-status.vue';
+import EditApplication from '@module/application/components/create-edit.vue';
+import MoveApplication from '@module/application/components/move-application.vue';
+import { FormMode } from '@module/common/types';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { useGroupStore } from '@module/group/store/group.store';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import Meeting from '@module/meeting/components/meeting.vue';
+import CreateMeeting from '@module/meeting/components/create-edit.vue';
 
 const props = defineProps({
   id: {

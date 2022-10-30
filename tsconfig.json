@@ -29,6 +29,8 @@
     ],
     "paths": {
       "@/*": ["src/*"],
+      "@global/*": ["src/components/common/*"],
+      "@module/*": ["src/modules/*"],
       "@shared": ["shared/types"],
       "@shared/*": ["shared/types/*"]
     }

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { MeetingInterface } from '@shared';
-import { CreateMeetingInterface, UpdateMeetingInterface } from '../types/meeting.interface';
-import { Logger } from '@/modules/common/utils/logger';
-import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
-import { CreatePersonInterface } from '@/modules/application/types/person.interface';
+import { Logger } from '@module/common/utils/logger';
+import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@global/NotificationPlugin';
+import { CreatePersonInterface } from '@module/application/types/person.interface';
+import { CreateMeetingInterface, UpdateMeetingInterface } from '@/modules/meeting/types/meeting.interface';
 
 export const useMeetingStore = defineStore('meeting', {
   state: () => {

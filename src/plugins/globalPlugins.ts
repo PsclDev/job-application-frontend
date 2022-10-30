@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import NotificationsPlugin from '@/components/common/NotificationPlugin';
+import NotificationsPlugin from '@global/NotificationPlugin';
 
 export default {
   install(Vue: App) {

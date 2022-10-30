@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_URL } from '@/modules/common/config';
-import { NotificationType, notifications, notify } from '@/components/common/NotificationPlugin';
-import { isForbidden, isInternalServerError, isUnauthorized, mapErrors } from '@/modules/common/utils/requestUtils';
+import { API_URL } from '@module/common/config';
+import { NotificationType, notifications, notify } from '@global/NotificationPlugin';
+import { isForbidden, isInternalServerError, isUnauthorized, mapErrors } from '@module/common/utils/requestUtils';
 
 export const statusCodesToHandle = [400, 401, 422];
 

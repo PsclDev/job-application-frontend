@@ -87,11 +87,11 @@ import { MeetingInterface, StateEnum } from '@shared';
 import { DateTime } from 'luxon';
 import { Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { reset } from '@formkit/core';
-import { CreateMeetingInterface } from '../types/meeting.interface';
-import { useMeetingStore } from '../store/meeting.store';
-import { FormMode } from '@/modules/common/types';
-import { CreatePersonInterface } from '@/modules/application/types/person.interface';
-import { getFormDateTimeFormat } from '@/modules/common/utils';
+import { CreateMeetingInterface } from '@module/meeting/types/meeting.interface';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import { FormMode } from '@module/common/types';
+import { CreatePersonInterface } from '@module/application/types/person.interface';
+import { getFormDateTimeFormat } from '@module/common/utils';
 
 const props = defineProps({
   mode: {

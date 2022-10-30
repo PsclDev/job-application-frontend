@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia';
 import { Ref, ref } from 'vue';
-import { useBreadcrumbsStore } from '../store/breadcrumbsStore';
-import { Breadcrumb } from '../types';
+import { Breadcrumb } from '@module/breadcrumbs/types';
+import { useBreadcrumbsStore } from '@module/breadcrumbs/store/breadcrumbsStore';
 
 export default function useBreadcrumbs() {
   const { setBreadcrumbs: setStoreBreadcrumbs } = useBreadcrumbsStore();

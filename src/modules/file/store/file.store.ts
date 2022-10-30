@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { FileInterface } from '@shared';
 import FormData from 'form-data';
-import { UploadFileOptions } from '../types/file-options.interface';
-import { UpdateFileInterface } from '../types/edit-file.interface';
-import { Logger } from '@/modules/common/utils/logger';
-import { error as ErrorNotifiaction, info as InfoNotification, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
+import { UploadFileOptions } from '@module/file/types/file-options.interface';
+import { UpdateFileInterface } from '@module/file/types/edit-file.interface';
+import { Logger } from '@module/common/utils/logger';
+import { error as ErrorNotifiaction, info as InfoNotification, success as SuccessNotifiaction } from '@global/NotificationPlugin';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
 
 export const useFileStore = defineStore('file', {
   state: () => {

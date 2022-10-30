@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { Breadcrumb } from '../types';
-import { Logger } from '@/modules/common/utils/logger';
+import { Breadcrumb } from '@module/breadcrumbs/types';
+import { Logger } from '@module/common/utils/logger';
 
 export const useBreadcrumbsStore = defineStore('breadcrumbs', {
   state: () => {

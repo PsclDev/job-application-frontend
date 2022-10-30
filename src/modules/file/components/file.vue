@@ -28,10 +28,10 @@
 <script lang="ts" setup>
 import { PropType, computed, ref, toRefs, watch } from 'vue';
 import { FileInterface } from '@shared';
-import { useFileStore } from '../store/file.store';
-import { UpdateFileInterface } from '../types/edit-file.interface';
-import { DropdownOption } from '@/modules/common/types';
-import { API_BASE_URL } from '@/modules/common/config';
+import { UpdateFileInterface } from '@module/file/types/edit-file.interface';
+import { useFileStore } from '@module/file/store/file.store';
+import { DropdownOption } from '@module/common/types';
+import { API_BASE_URL } from '@module/common/config';
 
 const props = defineProps({
   file: {

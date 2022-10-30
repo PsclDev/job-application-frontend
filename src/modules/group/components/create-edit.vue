@@ -36,9 +36,9 @@
 import { PropType, ref, toRefs } from 'vue';
 import { GroupInterface } from '@shared';
 import { reset } from '@formkit/core';
-import { CreateGroupInterface } from '../types/group.interface';
-import { useGroupStore } from '../store/group.store';
-import { FormMode } from '@/modules/common/types';
+import { CreateGroupInterface } from '@module/group/types/group.interface';
+import { useGroupStore } from '@module/group/store/group.store';
+import { FormMode } from '@module/common/types';
 
 const props = defineProps({
   mode: {

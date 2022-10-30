@@ -2,9 +2,9 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ApplicationInterface, StateEnum } from '@shared';
 import { DateTime } from 'luxon';
-import { CreateApplicationInterface, UpdateApplicationInterface } from '../types/application.interface';
-import { Logger } from '@/modules/common/utils/logger';
-import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
+import { Logger } from '@module/common/utils/logger';
+import { CreateApplicationInterface, UpdateApplicationInterface } from '@module/application/types/application.interface';
+import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@global/NotificationPlugin';
 
 export const useApplicationStore = defineStore('application', {
   state: () => {

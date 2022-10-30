@@ -12,6 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import CalendarHeader from '@/modules/calendar/components/calendar-header.vue';
-import FileHeader from '@/modules/file/components/file-header.vue';
+import CalendarHeader from '@module/calendar/components/calendar-header.vue';
+import FileHeader from '@module/file/components/file-header.vue';
 </script>

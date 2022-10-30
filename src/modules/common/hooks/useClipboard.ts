@@ -1,4 +1,4 @@
-import { info as InfoNotification } from '@/components/common/NotificationPlugin';
+import { info as InfoNotification } from '@global/NotificationPlugin';
 
 export default function useClipboard() {
   const copyTo = (value: string, message = 'Copied to clipboard') => {

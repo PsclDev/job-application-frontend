@@ -12,9 +12,9 @@
 import { PropType, ref, toRefs, watch } from 'vue';
 import { GroupInterface } from '@shared';
 import { useRouter } from 'vue-router';
-import { useGroupStore } from '../store/group.store';
-import EditGroup from '../components/create-edit.vue';
-import { DropdownOption, FormMode } from '@/modules/common/types';
+import { useGroupStore } from '@module/group/store/group.store';
+import EditGroup from '@module/group/components/create-edit.vue';
+import { DropdownOption, FormMode } from '@module/common/types';
 
 const props = defineProps({
   group: {

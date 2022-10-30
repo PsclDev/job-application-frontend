@@ -42,8 +42,8 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue';
 import { ArrowRightIcon, MoreVerticalIcon } from '@zhuowenli/vue-feather-icons';
-import ArchivedBadge from '../badge/archived-badge.vue';
-import { DropdownOption } from '@/modules/common/types';
+import { DropdownOption } from '@module/common/types';
+import ArchivedBadge from '@global/badge/archived-badge.vue';
 
 const props = defineProps({
   title: {

@@ -112,12 +112,12 @@ import { PropType, ref, toRefs } from 'vue';
 import { ApplicationInterface, StateEnum } from '@shared';
 import { DateTime } from 'luxon';
 import { reset } from '@formkit/vue';
-import { CreateApplicationInterface } from '../types/application.interface';
-import { useApplicationStore } from '../store/application.store';
-import { getLatestStatus } from '../utils';
-import { getStatusFormOptions } from '../utils/status-options';
-import { FormMode } from '@/modules/common/types';
-import { getFormDateFormat } from '@/modules/common/utils';
+import { FormMode } from '@module/common/types';
+import { getFormDateFormat } from '@module/common/utils';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { CreateApplicationInterface } from '@module/application/types/application.interface';
+import { getLatestStatus } from '@module/application/utils';
+import { getStatusFormOptions } from '@module/application/utils/status-options';
 
 const props = defineProps({
   mode: {

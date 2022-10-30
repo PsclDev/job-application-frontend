@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { GroupInterface } from '@shared';
-import { CreateGroupInterface, UpdateGroupInterface } from '../types/group.interface';
-import { Logger } from '@/modules/common/utils/logger';
-import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@/components/common/NotificationPlugin';
+import { CreateGroupInterface, UpdateGroupInterface } from '@module/group/types/group.interface';
+import { Logger } from '@module/common/utils/logger';
+import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@global/NotificationPlugin';
 
 export const useGroupStore = defineStore('group', {
   state: () => {

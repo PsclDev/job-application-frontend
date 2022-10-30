@@ -14,7 +14,8 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
-import { useBreadcrumbsStore } from '@/modules/breadcrumbs/store/breadcrumbsStore';
+import { useBreadcrumbsStore } from '@module/breadcrumbs/store/breadcrumbsStore';
+
 const router = useRouter();
 const { getBreadcrumbs } = storeToRefs(useBreadcrumbsStore());
 </script>

@@ -53,13 +53,13 @@ import { useRouter } from 'vue-router';
 import { MeetingInterface } from '@shared';
 import { EditIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { DateTime } from 'luxon';
-import { useMeetingStore } from '../../store/meeting.store';
-import EditMeeting from '../../components/create-edit.vue';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
-import { useGroupStore } from '@/modules/group/store/group.store';
-import { useApplicationStore } from '@/modules/application/store/application.store';
-import { FormMode } from '@/modules/common/types';
-import useClipboard from '@/modules/common/hooks/useClipboard';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import EditMeeting from '@module/meeting/components/create-edit.vue';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
+import { useGroupStore } from '@module/group/store/group.store';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { FormMode } from '@module/common/types';
+import useClipboard from '@module/common/hooks/useClipboard';
 
 const props = defineProps({
   id: {

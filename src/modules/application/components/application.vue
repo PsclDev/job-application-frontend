@@ -16,10 +16,10 @@
 import { PropType, ref, toRefs, watch } from 'vue';
 import { ApplicationInterface } from '@shared';
 import { useRouter } from 'vue-router';
-import { useApplicationStore } from '../store/application.store';
+import { DropdownOption, FormMode } from '@module/common/types';
+import { useApplicationStore } from '@module/application/store/application.store';
 import EditApplication from './create-edit.vue';
 import MoveApplication from './move-application.vue';
-import { DropdownOption, FormMode } from '@/modules/common/types';
 
 const props = defineProps({
   application: {

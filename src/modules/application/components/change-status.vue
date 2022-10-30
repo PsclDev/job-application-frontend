@@ -42,9 +42,9 @@ import { ref, toRefs } from 'vue';
 import { reset } from '@formkit/vue';
 import { StatusInterface } from '@shared';
 import { DateTime } from 'luxon';
-import { useApplicationStore } from '../store/application.store';
-import { getStatusFormOptions } from '../utils/status-options';
-import { getFormDateFormat } from '@/modules/common/utils';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { getStatusFormOptions } from '@module/application/utils/status-options';
+import { getFormDateFormat } from '@module/common/utils';
 
 const props = defineProps({
   applicationId: {

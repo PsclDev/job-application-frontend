@@ -29,8 +29,8 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { computed, ref, toRefs } from 'vue';
-import Application from '../components/application.vue';
-import { useApplicationStore } from '../store/application.store';
+import Application from '@module/application/components/application.vue';
+import { useApplicationStore } from '@module/application/store/application.store';
 
 const props = defineProps({
   groupId: {

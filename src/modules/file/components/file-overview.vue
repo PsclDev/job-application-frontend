@@ -20,9 +20,9 @@
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { FileInterface } from '@shared';
+import { useFileStore } from '@module/file/store/file.store';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
 import FileGroup from './file-group.vue';
-import { useFileStore } from '@/modules/file/store/file.store';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
 
 const { files, getGlobalFiles, getGroupFiles, getApplicationFiles } = storeToRefs(useFileStore());
 const { getApplicationId, getBreadcrumbs, getGroupId } = useBreadcrumbs();

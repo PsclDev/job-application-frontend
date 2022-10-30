@@ -13,9 +13,9 @@ import { PropType, computed, ref, toRefs } from 'vue';
 import { MeetingInterface } from '@shared';
 import { useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
-import { useMeetingStore } from '../store/meeting.store';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import { DropdownOption, FormMode } from '@module/common/types';
 import EditMeeting from './create-edit.vue';
-import { DropdownOption, FormMode } from '@/modules/common/types';
 
 const props = defineProps({
   meeting: {

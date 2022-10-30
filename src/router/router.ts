@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupLayouts } from 'virtual:generated-layouts';
 import generatedRoutes from 'virtual:generated-pages';
-import { Logger } from '@/modules/common/utils/logger';
+import { Logger } from '@module/common/utils/logger';
 
 const logger = new Logger('Router');
 const routes = setupLayouts(generatedRoutes);

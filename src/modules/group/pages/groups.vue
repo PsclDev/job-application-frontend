@@ -43,10 +43,10 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
-import { useGroupStore } from '../store/group.store';
-import Group from '../components/group.vue';
-import CreateGroup from '../components/create-edit.vue';
-import useBreadcrumbs from '@/modules/breadcrumbs/hooks/useBreadcrumbs';
+import Group from '@module/group/components/group.vue';
+import CreateGroup from '@module/group/components/create-edit.vue';
+import { useGroupStore } from '@module/group/store/group.store';
+import useBreadcrumbs from '@module/breadcrumbs/hooks/useBreadcrumbs';
 
 const { clearBreadcrumbs } = useBreadcrumbs();
 clearBreadcrumbs();

@@ -38,10 +38,10 @@ import { ref } from 'vue';
 import { DateTime } from 'luxon';
 import { MeetingInterface } from '@shared';
 import { useRouter } from 'vue-router';
-import { event } from '../types/event.interface';
-import { useMeetingStore } from '@/modules/meeting/store/meeting.store';
-import { isUpcoming } from '@/modules/common/utils';
-import useClipboard from '@/modules/common/hooks/useClipboard';
+import { event } from '@module/calendar/types/event.interface';
+import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import { isUpcoming } from '@module/common/utils';
+import useClipboard from '@module/common/hooks/useClipboard';
 
 const { meetings } = useMeetingStore();
 

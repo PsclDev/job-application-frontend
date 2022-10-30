@@ -32,10 +32,10 @@
 
 <script lang="ts" setup>
 import { ref, toRefs } from 'vue';
-import { reset } from '@formkit/vue';
 import { storeToRefs } from 'pinia';
-import { useApplicationStore } from '../store/application.store';
-import { useGroupStore } from '@/modules/group/store/group.store';
+import { reset } from '@formkit/vue';
+import { useApplicationStore } from '@module/application/store/application.store';
+import { useGroupStore } from '@module/group/store/group.store';
 
 const props = defineProps({
   applicationId: {

@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pages/client" />
 import { DefineComponent } from 'vue'
-import { NotificationStoreType } from "@/components/common/NotificationPlugin";
+import { NotificationStoreType } from "@global/NotificationPlugin";
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
