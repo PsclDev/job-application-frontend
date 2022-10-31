@@ -17,7 +17,7 @@
               class="cursor-pointer"
               :class="attr.customData.class"
               @click="showDetail(attr.customData.id)"
-              @auxclick="copyMeetingLink(attr.customData.link)"
+              @auxclick="openMeetingLink(attr.customData.link)"
             >
               <p
                 class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
@@ -41,7 +41,6 @@ import { useRouter } from 'vue-router';
 import { event } from '@module/calendar/types/event.interface';
 import { useMeetingStore } from '@module/meeting/store/meeting.store';
 import { isUpcoming } from '@module/common/utils';
-import useClipboard from '@module/common/hooks/useClipboard';
 
 const { meetings } = useMeetingStore();
 
@@ -129,9 +128,7 @@ function showDetail(id: string) {
   router.push(`/meeting/${id}`);
 }
 
-const { copyTo } = useClipboard();
-
-function copyMeetingLink(link: string) {
-  copyTo(link, 'Copied meeting link to clipboard!');
+function openMeetingLink(link: string) {
+  window.open(link, '_blank');
 }
 </script>

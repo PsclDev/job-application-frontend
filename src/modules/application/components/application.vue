@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseCard class="w-112" :title="application.name" title-width="w-80" :description="application.description" action="modules.application.components.application.card-action" :archived="application.isArchived" :dropdown-options="dropdownOptions" @action-clicked="cardAction" @dropdown-clicked="async (option: DropdownOption) => await option.action()" />
+    <BaseCard class="w-112" :title="`${application.name}, ${application.company}`" title-width="w-80" :description="application.description" action="modules.application.components.application.card-action" :archived="application.isArchived" :dropdown-options="dropdownOptions" @action-clicked="cardAction" @dropdown-clicked="async (option: DropdownOption) => await option.action()" />
 
     <GDialog v-model="showEditModal">
       <EditApplication :mode="FormMode.EDIT" :application="application" @submit="showEditModal = false" />
@@ -8,6 +8,10 @@
 
     <GDialog v-model="showMoveModal">
       <MoveApplication :application-id="application.id" :group-id="application.groupId" @submit="showMoveModal = false" />
+    </GDialog>
+
+    <GDialog v-model="showChangeStatusModal">
+      <ChangeStatus :mode="FormMode.EDIT" :application-id="application.id" :status="application.status" @submit="showChangeStatusModal = false" />
     </GDialog>
   </div>
 </template>
@@ -20,6 +24,7 @@ import { DropdownOption, FormMode } from '@module/common/types';
 import { useApplicationStore } from '@module/application/store/application.store';
 import EditApplication from './create-edit.vue';
 import MoveApplication from './move-application.vue';
+import ChangeStatus from './change-status.vue';
 
 const props = defineProps({
   application: {
@@ -30,6 +35,7 @@ const props = defineProps({
 
 const router = useRouter();
 const showEditModal = ref(false);
+const showChangeStatusModal = ref(false);
 const showMoveModal = ref(false);
 
 const { application } = toRefs(props);
@@ -49,6 +55,10 @@ function generateDropdownOptions() {
         {
           label: 'common.edit',
           action: edit,
+        },
+        {
+          label: 'modules.application.components.application.change-status',
+          action: changeStatus,
         },
         {
           label: 'common.move',
@@ -77,6 +87,10 @@ function cardAction() {
 
 function edit() {
   showEditModal.value = true;
+}
+
+function changeStatus() {
+  showChangeStatusModal.value = true;
 }
 
 function move() {

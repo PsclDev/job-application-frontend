@@ -44,7 +44,7 @@
   </GDialog>
 
   <GDialog v-model="showCreateApplicaitonModal">
-    <CreateApplication :mode="FormMode.CREATE" :group-id="id" />
+    <CreateApplication :mode="FormMode.CREATE" :group-id="id" @submit="showCreateApplicaitonModal = false" />
   </GDialog>
 </template>
 

@@ -11,6 +11,9 @@
 
     <div class="col-end-7 col-span-1">
       <div class="flex gap-5">
+        <a :href="meeting.link" target="_blank" class="text-emerald-200 hover:text-emerald-500">
+          <ExternalLinkIcon size="1.5x" />
+        </a>
         <button class="text-emerald-200 hover:text-emerald-500" @click="showEditModal = true">
           <EditIcon size="1.5x" />
         </button>
@@ -51,7 +54,7 @@
 import { onMounted, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { MeetingInterface } from '@shared';
-import { EditIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
+import { EditIcon, ExternalLinkIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { DateTime } from 'luxon';
 import { useMeetingStore } from '@module/meeting/store/meeting.store';
 import EditMeeting from '@module/meeting/components/create-edit.vue';

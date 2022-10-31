@@ -4,7 +4,8 @@
     :class="{
       'h-4 w-4': size === 'xs',
       'h-5 w-5': size === 'sm',
-      'h-5 w-5': !['xs', 'sm'].includes(size),
+      'h-8 w-8': size === 'md',
+      'h-12 w-12': size === 'xl',
     }"
   />
 </template>

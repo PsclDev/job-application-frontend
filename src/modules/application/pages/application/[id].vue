@@ -7,7 +7,7 @@
   <div class="grid grid-cols-6 place-items-center">
     <div class="col-start-2 col-span-4 text-center">
       <p class="text-3xl font-extrabold text-gray-900">
-        {{ application.name }}
+        {{ application.name }}, {{ application.company }}
       </p>
       <p class="text-xl font-extrabold text-gray-900">
         {{ application.description }}
@@ -63,11 +63,11 @@
   </GDialog>
 
   <GDialog v-model="showMoveModal">
-    <MoveApplication :mode="FormMode.EDIT" :application-id="application.id" :group-id="application.groupId" @submit="showMoveModal = false" />
+    <MoveApplication :mode="FormMode.EDIT" :application-id="application.id" :group-id="application.groupId" @submit="submitMoveModal" />
   </GDialog>
 
   <GDialog v-model="showChangeStatusModal">
-    <ChangeStatus :mode="FormMode.EDIT" :application-id="application.id" :status="application.status" @submit="showChangeStatusModal = false" />
+    <ChangeStatus :mode="FormMode.EDIT" :application-id="application.id" :status="application.status" @submit="submitChangeStatusModal" />
   </GDialog>
 
   <GDialog v-model="showCreateMeetingModal">
@@ -79,7 +79,7 @@
 import { computed, onMounted, ref, toRefs, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { ArchiveIcon, EditIcon, ExternalLinkIcon, FolderIcon, InboxIcon, Trash2Icon } from '@zhuowenli/vue-feather-icons';
-import { ApplicationInterface, MeetingInterface } from '@shared';
+import { ApplicationInterface, GroupInterface, MeetingInterface } from '@shared';
 import { storeToRefs } from 'pinia';
 import { getLatestStatus } from '@module/application/utils';
 import ChangeStatus from '@module/application/components/change-status.vue';
@@ -123,7 +123,7 @@ onMounted(() => {
 const initialNotes = ref<string>(application.value?.notes);
 
 const { groupById } = useGroupStore();
-const group = groupById(application.value.groupId)!;
+const group = ref<GroupInterface>(groupById(application.value.groupId)!);
 
 const { meetings: meetingsToWatch, meetingsByApplicationId } = storeToRefs(useMeetingStore());
 const meetings = ref<MeetingInterface[]>(meetingsByApplicationId.value(application.value.id));
@@ -132,26 +132,29 @@ watch(() => meetingsToWatch.value, () => {
   meetings.value = meetingsByApplicationId.value(application.value.id);
 });
 
-setBreadcrumbs([
-  {
-    label: 'modules.group.pages.groups.title',
-    value: '',
-    translate: true,
-    to: '/groups',
-  },
-  {
-    label: group.name,
-    value: group.id,
-    translate: false,
-    to: `/group/${group.id}`,
-  },
-  {
-    label: application.value.name,
-    value: id.value,
-    translate: false,
-    to: `/application/${id.value}`,
-  },
-]);
+function generateBreadcrumbs() {
+  setBreadcrumbs([
+    {
+      label: 'modules.group.pages.groups.title',
+      value: '',
+      translate: true,
+      to: '/groups',
+    },
+    {
+      label: group.value.name,
+      value: group.value.id,
+      translate: false,
+      to: `/group/${group.value.id}`,
+    },
+    {
+      label: application.value.name,
+      value: id.value,
+      translate: false,
+      to: `/application/${id.value}`,
+    },
+  ]);
+}
+generateBreadcrumbs();
 
 const latestStatus = computed(() => {
   return getLatestStatus(application.value.status);
@@ -185,6 +188,18 @@ function editorBlur() {
 
 function submitEditModal() {
   showEditModal.value = false;
+  application.value = applicationById(id.value)!;
+}
+
+function submitMoveModal() {
+  showMoveModal.value = false;
+  application.value = applicationById(id.value)!;
+  group.value = groupById(application.value.groupId)!;
+  generateBreadcrumbs();
+}
+
+function submitChangeStatusModal() {
+  showChangeStatusModal.value = false;
   application.value = applicationById(id.value)!;
 }
 

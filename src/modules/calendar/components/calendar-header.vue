@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import { CalendarIcon } from '@zhuowenli/vue-feather-icons';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useMeetingStore } from '@module/meeting/store/meeting.store';
 import { isUpcoming } from '@module/common/utils';
@@ -21,7 +21,9 @@ import Calendar from './calendar.vue';
 
 const { meetings } = storeToRefs(useMeetingStore());
 
-const meetingsLength = ref<number>(meetings.value.filter(meeting => isUpcoming(meeting.date)).length);
+const meetingsLength = computed(() => {
+  return meetings.value.filter(meeting => isUpcoming(meeting.date)).length;
+});
 
 const showCalendarModal = ref(false);
 </script>

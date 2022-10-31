@@ -52,30 +52,38 @@
         type="group"
         name="contact"
       >
-        <div class="flex justify-between">
-          <FormKit
-            type="text"
-            name="name"
-            :label="$t('modules.application.modal.form.contact-name')"
-            minlength="3"
-            maxlength="50"
-            validation-visibility="dirty"
-          />
-          <FormKit
-            type="text"
-            name="position"
-            :label="$t('modules.application.modal.form.contact-position')"
-            minlength="2"
-            maxlength="50"
-            validation-visibility="dirty"
-          />
-          <FormKit
-            type="email"
-            name="email"
-            :label="$t('modules.application.modal.form.contact-email')"
-            validation-visibility="live"
-            validation="email"
-          />
+        <div class="flex justify-between gap-5">
+          <div class="w-full">
+            <FormKit
+              type="text"
+              name="name"
+              :label="$t('modules.application.modal.form.contact-name')"
+              minlength="3"
+              maxlength="50"
+              validation-visibility="dirty"
+            />
+          </div>
+          <div class="w-full">
+            <FormKit
+              class="w-full"
+              type="text"
+              name="position"
+              :label="$t('modules.application.modal.form.contact-position')"
+              minlength="2"
+              maxlength="50"
+              validation-visibility="dirty"
+            />
+          </div>
+          <div class="w-full">
+            <FormKit
+              class="w-full"
+              type="email"
+              name="email"
+              :label="$t('modules.application.modal.form.contact-email')"
+              validation-visibility="live"
+              validation="email"
+            />
+          </div>
         </div>
       </FormKit>
 
@@ -84,7 +92,7 @@
         type="group"
       >
         <div class="flex justify-between gap-5">
-          <div class="grow">
+          <div class="w-full">
             <FormKit
               name="state"
               type="select"
@@ -93,7 +101,7 @@
               validation="required"
             />
           </div>
-          <div class="grow">
+          <div class="w-full">
             <FormKit
               type="date"
               name="date"

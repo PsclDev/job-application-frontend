@@ -1,15 +1,15 @@
 <template>
   <div class="p-5 h-full rounded-lg border-2 border-gray-100 drop-shadow-xl">
     <div class="flex flex-col gap-5 items-start">
-      <div v-if="globalFiles.length > 0">
+      <div>
         <FileGroup title="modules.file.modal.group.global" :files="globalFiles" />
       </div>
 
-      <div v-if="groupFiles.length > 0">
+      <div>
         <FileGroup title="modules.file.modal.group.group" :files="groupFiles" />
       </div>
 
-      <div v-if="applicationFiles.length > 0">
+      <div>
         <FileGroup title="modules.file.modal.group.application" :files="applicationFiles" />
       </div>
     </div>

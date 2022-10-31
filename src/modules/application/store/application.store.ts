@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ApplicationInterface, StateEnum } from '@shared';
 import { DateTime } from 'luxon';
-import { Logger } from '@module/common/utils/logger';
+import { Logger, getFormDateFormat } from '@module/common/utils';
 import { CreateApplicationInterface, UpdateApplicationInterface } from '@module/application/types/application.interface';
 import { error as ErrorNotifiaction, success as SuccessNotifiaction } from '@global/NotificationPlugin';
 
@@ -89,6 +89,7 @@ export const useApplicationStore = defineStore('application', {
                 company: "${application.company}"
                 jobUrl: "${application.jobUrl}"
                 notes: ""
+                isArchived: false
                 contact: {
                     name: "${application.contact.name}"
                     position: "${application.contact.position}"
@@ -200,7 +201,7 @@ export const useApplicationStore = defineStore('application', {
         this.sortApplications();
         this.actionSucceeded('move', 'Moved into new group');
       } catch (err) {
-        this.catchError('move', err, 'Update to move application into new group');
+        this.catchError('move', err, 'Moveing application into new group failed');
       }
     },
     async changeStatus(id: string, status: { state: string; date: string }) {
@@ -220,11 +221,11 @@ export const useApplicationStore = defineStore('application', {
         });
         this.applications = this.applications.map((application) => {
           if (application.id === id) {
-            application.status.push({ state: StateEnum[status.state], date: DateTime.fromFormat(status.date, getFormDateFormat()).toJSDate() });
+            application.status.push({ state: StateEnum[status.state as keyof typeof StateEnum], date: DateTime.fromFormat(status.date, getFormDateFormat()).toJSDate() });
           }
           return application;
         });
-        this.actionSucceeded('changeStatus', 'Updated status');
+        this.actionSucceeded('changeStatus', 'Updated status', status);
       } catch (err) {
         this.catchError('changeStatus', err, 'Failed to update status');
       }

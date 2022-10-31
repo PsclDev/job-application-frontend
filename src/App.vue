@@ -7,12 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from 'vue';
+import { watch } from 'vue';
 import { useGroupStore } from '@module/group/store/group.store';
 import { useFileStore } from '@module/file/store/file.store';
 import { useApplicationStore } from '@module/application/store/application.store';
 import { DEFAULT_APP_TITLE } from '@module/common/config';
 import { useMeetingStore } from '@module/meeting/store/meeting.store';
+import { useRoute } from 'vue-router';
 
 const { loadAll: loadAllGroups } = useGroupStore();
 loadAllGroups();
@@ -26,20 +27,11 @@ loadAllFiles();
 const { loadAll: loadAllMeetings } = useMeetingStore();
 loadAllMeetings();
 
-defineComponent({
-  watch: {
-    $route: {
-      handler() {
-        this.setTitle();
-      },
-      immediate: true,
-    },
-  },
-  methods: {
-    setTitle() {
-      document.title = `${String(this.$route.name)} - ${DEFAULT_APP_TITLE}`;
-    },
-  },
+const route = useRoute();
+
+watch(() => route.name, () => {
+  const capitalize = route.name!.toString().charAt(0).toUpperCase() + route.name!.toString().slice(1);
+  document.title = `${capitalize} - ${DEFAULT_APP_TITLE}`;
 });
 
 function fileDrop(event: DragEvent) {

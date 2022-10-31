@@ -25,7 +25,8 @@
     "application": {
       "components": {
         "application": {
-          "card-action": "View Application"
+          "card-action": "View Application",
+          "change-status": "Change Status"
         },
         "applications": {
           "not-found": "No applications could be found"
@@ -68,6 +69,9 @@
       "components": {
         "card": {
           "action": "Get file"
+        },
+        "group": {
+          "hint": "Not inside a group/application or file could be found"
         }
       },
       "modal": {

@@ -82,8 +82,8 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, getCurrentInstance, ref, toRefs } from 'vue';
-import { MeetingInterface, StateEnum } from '@shared';
+import { PropType, ref, toRefs } from 'vue';
+import { MeetingInterface } from '@shared';
 import { DateTime } from 'luxon';
 import { Trash2Icon } from '@zhuowenli/vue-feather-icons';
 import { reset } from '@formkit/core';
@@ -107,15 +107,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['submit']);
-
 const { mode, applicationId, meeting } = toRefs(props);
-
-const stateOptions = ref({} as any);
-const app = getCurrentInstance();
-const translation = app?.appContext.config.globalProperties.$t;
-Object.keys(StateEnum).forEach((s: string) => {
-  stateOptions.value[s] = translation(`enum.state.${s}`);
-});
 
 const initialState = ref<CreateMeetingInterface>({
   title: '',
@@ -156,7 +148,7 @@ function addAttendee() {
 }
 
 function removeAttendee(index: number) {
-  form.value.attendees = form.value.attendees.filter(attendee => attendee.localId !== index);
+  tempAttendees.value = tempAttendees.value.filter(attendee => attendee.localId !== index);
 }
 
 const { create, edit } = useMeetingStore();
