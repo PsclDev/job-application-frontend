@@ -30,7 +30,6 @@ export const useFileStore = defineStore('file', {
     async loadAll() {
       try {
         this.loading = true;
-
         const res = await axios.post<{ files: FileInterface[] }>('', {
           query: `
           query {
@@ -42,7 +41,7 @@ export const useFileStore = defineStore('file', {
         });
         this.files = res.data.files;
         this.sortFiles();
-        this.actionSucceeded('loadAll', 'Loaded all files', res.data.files);
+        this.loading = false;
       } catch (err) {
         this.catchError('loadAll', err, 'Couldn\'t load files');
       }

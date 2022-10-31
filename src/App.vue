@@ -1,31 +1,51 @@
 <template>
   <suspense>
-    <div @drop.prevent="fileDrop($event)">
-      <router-view />
-    </div>
+    <template v-if="loadedAllData">
+      <div @drop.prevent="fileDrop($event)">
+        <router-view />
+      </div>
+    </template>
+    <template v-else>
+      <div class="flex justify-center">
+        <LoadingIcon size="xl" />
+      </div>
+    </template>
   </suspense>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useGroupStore } from '@module/group/store/group.store';
 import { useFileStore } from '@module/file/store/file.store';
 import { useApplicationStore } from '@module/application/store/application.store';
 import { DEFAULT_APP_TITLE } from '@module/common/config';
 import { useMeetingStore } from '@module/meeting/store/meeting.store';
 import { useRoute } from 'vue-router';
+import { storeToRefs } from 'pinia';
 
-const { loadAll: loadAllGroups } = useGroupStore();
+const groupStore = useGroupStore();
+const { loadAll: loadAllGroups } = groupStore;
+const { loading: loadingGroups } = storeToRefs(groupStore);
 loadAllGroups();
 
-const { loadAll: loadAllApplications } = useApplicationStore();
+const applicationStore = useApplicationStore();
+const { loadAll: loadAllApplications } = applicationStore;
+const { loading: loadingApplications } = storeToRefs(applicationStore);
 loadAllApplications();
 
-const { loadAll: loadAllFiles, uploadFiles } = useFileStore();
+const fileStore = useFileStore();
+const { loadAll: loadAllFiles, uploadFiles } = fileStore;
+const { loading: loadingFiles } = storeToRefs(fileStore);
 loadAllFiles();
 
-const { loadAll: loadAllMeetings } = useMeetingStore();
+const meetingStore = useMeetingStore();
+const { loadAll: loadAllMeetings } = meetingStore;
+const { loading: loadingMeetings } = storeToRefs(meetingStore);
 loadAllMeetings();
+
+const loadedAllData = computed(() => {
+  return !(loadingGroups.value && loadingApplications.value && loadingFiles.value && loadingMeetings.value);
+});
 
 const route = useRoute();
 

@@ -39,7 +39,6 @@ export const useApplicationStore = defineStore('application', {
     async loadAll() {
       try {
         this.loading = true;
-
         const res = await axios.post<{ applications: ApplicationInterface[] }>('', {
           query: `
           query {
@@ -51,7 +50,7 @@ export const useApplicationStore = defineStore('application', {
         });
         this.applications = res.data.applications;
         this.sortApplications();
-        this.actionSucceeded('loadAll', 'Loaded all applications', res.data.applications);
+        this.loading = false;
       } catch (err) {
         this.catchError('loadAll', err, 'Couldn\'t load applications');
       }

@@ -31,7 +31,6 @@ export const useMeetingStore = defineStore('meeting', {
     async loadAll() {
       try {
         this.loading = true;
-
         const res = await axios.post<{ meetings: MeetingInterface[] }>('', {
           query: `
           query {
@@ -43,7 +42,7 @@ export const useMeetingStore = defineStore('meeting', {
         });
         this.meetings = res.data.meetings;
         this.sortMeetings();
-        this.actionSucceeded('loadAll', 'Loaded all meetings', res.data.meetings);
+        this.loading = false;
       } catch (err) {
         this.catchError('loadAll', err, 'Couldn\'t load meetings');
       }

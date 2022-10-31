@@ -29,7 +29,6 @@ export const useGroupStore = defineStore('group', {
     async loadAll() {
       try {
         this.loading = true;
-
         const res = await axios.post<{ groups: GroupInterface[] }>('', {
           query: `
           query {
@@ -41,7 +40,7 @@ export const useGroupStore = defineStore('group', {
         });
         this.groups = res.data.groups;
         this.sortGroups();
-        this.actionSucceeded('loadAll', 'Loaded all groups', res.data.groups);
+        this.loading = false;
       } catch (err) {
         this.catchError('loadAll', err, 'Couldn\'t load groups');
       }
