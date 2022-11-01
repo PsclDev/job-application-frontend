@@ -1,5 +1,5 @@
 // tslint:disable:no-console
-import * as debug from 'debug';
+import debug from 'debug';
 
 export class Logger {
   private loggers: {

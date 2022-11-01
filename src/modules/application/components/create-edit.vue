@@ -179,7 +179,12 @@ function applicationAsForm(application: ApplicationInterface): CreateApplication
     description,
     company,
     jobUrl,
-    contact,
+    contact: {
+      localId: 0,
+      name: contact.name,
+      position: contact.position,
+      email: contact.email,
+    },
     status: {
       state: latestStatus.state,
       date: DateTime.fromJSDate(new Date(latestStatus.date)).toFormat(getFormDateFormat()),
