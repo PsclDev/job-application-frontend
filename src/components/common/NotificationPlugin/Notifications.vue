@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Notification from './Notification.vue';
+import Notification from './notification.vue';
 import { Notification as NotificationType } from './index';
 
 export default defineComponent({

@@ -3,15 +3,15 @@
     <p class="text-xl uppercase font-bold mb-3">
       {{ $t(title) }}
     </p>
-    <div class="flex gap-5">
-      <div v-if="files.length > 0">
+    <div v-if="files.length > 0">
+      <div class="flex gap-5">
         <div v-for="file in files" :key="file.id">
           <File :file="file" />
         </div>
       </div>
-      <div v-else class="text-xl text-gray-400">
-        {{ $t('modules.file.components.group.hint') }}
-      </div>
+    </div>
+    <div v-else class="text-xl text-gray-400">
+      {{ $t('modules.file.components.group.hint') }}
     </div>
   </div>
 </template>

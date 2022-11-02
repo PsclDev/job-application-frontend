@@ -1,5 +1,5 @@
 import { App, createApp, reactive } from 'vue';
-import Notifications from './Notifications.vue';
+import Notifications from './notifications.vue';
 
 export enum NotificationType {
   Success = 'success',

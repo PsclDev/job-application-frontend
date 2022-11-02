@@ -13,6 +13,7 @@
     "sort-json": "sort-json src/locales/en.json",
     "start:dev": "vite --host",
     "start:preview": "vite preview",
+    "start:prod": "serve dist",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "lodash-es": "^4.17.21",
     "luxon": "^3.0.3",
     "pinia": "^2.0.14",
+    "serve": "^14.0.1",
     "sort-json": "^2.0.1",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.35",
