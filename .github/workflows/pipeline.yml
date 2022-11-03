@@ -81,7 +81,7 @@ jobs:
           username: ${{ env.PACKAGE_AUTHOR }}
           password: ${{ secrets.PIPELINE_PAT }}
 
-      - name: Backend - Build and push image 🚀
+      - name: Frontend - Build and push image 🚀
         if: steps.semantic.outputs.new_release_published == 'true'
         uses: docker/build-push-action@v3
         with:
