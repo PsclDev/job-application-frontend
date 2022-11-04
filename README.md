@@ -1,53 +1,85 @@
 ## Table of Contents
 
-- [About](#invoice-app)
-- [Feature list](#features)
-- [Tech-Stack](#tech-stack)
-- [Requirements](#requirements)
-- [Getting Started](#getting-started)
-- [Postman](#postman)
-- [Git / Pre-Commit hook](#git)
-- [Continuous Integration](#ci)
+- [About](#screenshots)
+- [Setup](#setup)
+- [Development](#development)
+   - [Tech Stack](#tech-stack)
+   - [Requirements](#requirements)
+   - [Getting started](#getting-started)
+   - [Git](#git)
+   - [CI](#ci)
+- [Screenshots](#screenshots)
+- [Credits](#credits)
 
-# Job-Application (wip)
+# Job-Application
 
-This is a fun project to use my new learned knowledge of graphql. You can track your job applications and get a nice overview of the states of each application.
+This is a fun project to use my new learned knowledge of graphql and vue's new composition. The tool should help you out to keep track of your applications in a easy and nice way.
+- Group applications into folders
+- Keep track of each status of a application
+- Create Meetings and view them in a calendar view
+- Take notes for a application or a meeting with a wyiwyg (what you see is what you get) editor
+- Upload all your files in a global, group or application context
 
-## Tech Stack
+## Setup
+### How to run the app
+- Pull the images
+   - backend: `docker pull ghcr.io/pscldev/job-application/backend:latest`
+   - frontend: `docker pull ghcr.io/pscldev/job-application/frontend:latest`
+- Set the required envs for both images which you can find in the `..EXAMPLE.env` file
+- The backend will run default on port 3010, the frontend on port 80. So dont miss to bind that
 
-This backend is written with NestJs, Apollo, Typeorm and uses postgres db
+## Development 
+### Tech Stack
+The backend is written with NestJs, Apollo, Typeorm and uses postgres as a database. Frontend is based on vite and vue3, used with the composition api and a DDD structure.
+For an easy build and deploy process for both there are docker images and github pipelines.
 
-## Requirements
+### Requirements
 
 The listed versions are not strictly needed, but tested with.
 
-- `Node v16`
+- `Node v16 or later`
 - `Yarn v1` or `Npm v8.5`
+- `Postgres`
 
-## Getting Started
+### Getting started
 
-If you are using `npm` just replace the `yarn` keyword with `npm run`
+If you are using `npm` just replace the `yarn` keyword with `npm run`.
 
-- **`yarn` or `npm i`** _to install the backend dependencies_
-- **`npx husky install`** _to install husky_
-- **`yarn start:dev`** _run the backend_
-- Set the required Envs based on the `..EXAMPLE-.env`, you have to create a `.env` file
+The process should apply the same for both repositories
+
+- **`yarn` or `npm i`** _to install dependencies_
+- **`npx husky install`** _to install husky_ (should be installed automatically with the first command)
+- Set the required Envs based on the `..EXAMPLE.env`, you have to create a `.env` file
+- Set the required properties based on the `..EXAMPLE_ormconfig.json` for the typeorm module (Backend only)
+- Clone the submodules: `git submodule init` and `git submodule update --remote`
+- **`yarn start:dev`** _to run in dev mode_
 
 _`Note to .env: If any env value contains a dollar sign ($) you have to encode that with a backslash (\$)`_
 
-## Git
+### Git
 
 Husky is used to run two pre-commit hooks. Staged files will be linted and fixed and also commitlint to check the commit-message
 
 Check out `https://github.com/conventional-changelog/commitlint` for more informations
 
-## CI
+### CI
 
-It will always run some github actions. It will lint, run tests, check for new versions, build docker package and set version of the npm package.
+It will always run some github actions. It will check for new versions based on commit messages and build the docker packages
 
-if you `merge` or `push` to `master` branch it will create a new docker image
+Docker images will only be build if you `push` or `merge` into master
 
 **Read the comments inside the `.github/workflows/pipeline` file and change the values to your like**
+
+## Screenshots
+### Desktop and Tablet
+| Light |
+| ----- |
+| ![](https://job-app.pscl.dev/groups.png) |
+| ![](https://job-app.pscl.dev/group.png) |
+| ![](https://job-app.pscl.dev/application.png) |
+| ![](https://job-app.pscl.dev/meeting.png) |
+| ![](https://job-app.pscl.dev/calendar.png) |
+| ![](https://job-app.pscl.dev/files.png) |
  
  ## Credits
  Favicon: https://7tv.app/emotes/6144a1e97b14fdf700b9424e
