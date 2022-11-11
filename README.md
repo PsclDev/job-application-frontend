@@ -21,12 +21,21 @@ This is a fun project to use my new learned knowledge of graphql and vue's new c
 - Upload all your files in a global, group or application context
 
 ## Setup
+### Requirements
+- A running postgres instance
+- Create a database for the application
+   - recommended to also use a separate user
+
 ### How to run the app
 - Pull the images
    - backend: `docker pull ghcr.io/pscldev/job-application/backend:latest`
    - frontend: `docker pull ghcr.io/pscldev/job-application/frontend:latest`
-- Set the required envs for both images which you can find in the `..EXAMPLE.env` file
-- The backend will run default on port 3010, the frontend on port 80. So dont miss to bind that
+- Set the required envs for both images which you can find in the repositories
+   - [backend](https://github.com/PsclDev/job-application-backend/blob/master/..EXAMPLE.env)
+   - [frontend](https://github.com/PsclDev/job-application-frontend/blob/master/..EXAMPLE.env)
+- Dont miss to bind the ports to be available from outside
+   - default backend: 3010
+   - default frontend: 80
 
 ## Development 
 ### Tech Stack
