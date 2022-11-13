@@ -1,7 +1,7 @@
 <template>
   <suspense>
     <template v-if="loadedAllData">
-      <div @drop.prevent="fileDrop($event)">
+      <div @drop.prevent="fileDrop($event)" @dragenter="drag" @dragover="drag">
         <router-view />
       </div>
     </template>
@@ -56,5 +56,9 @@ watch(() => route.name, () => {
 
 function fileDrop(event: DragEvent) {
   uploadFiles(event.dataTransfer!.files);
+}
+
+function drag(e: DragEvent) {
+  e.preventDefault();
 }
 </script>
