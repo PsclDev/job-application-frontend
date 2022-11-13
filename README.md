@@ -25,17 +25,22 @@ This is a fun project to use my new learned knowledge of graphql and vue's new c
 - A running postgres instance
 - Create a database for the application
    - recommended to also use a separate user
+- Docker instance to build and publish a image
 
 ### How to run the app
-- Pull the images
-   - backend: `docker pull ghcr.io/pscldev/job-application/backend:latest`
-   - frontend: `docker pull ghcr.io/pscldev/job-application/frontend:latest`
-- Set the required envs for both images which you can find in the repositories
-   - [backend](https://github.com/PsclDev/job-application-backend/blob/master/..EXAMPLE.env)
-   - [frontend](https://github.com/PsclDev/job-application-frontend/blob/master/..EXAMPLE.env)
-- Dont miss to bind the ports to be available from outside
-   - default backend: 3010
-   - default frontend: 80
+- Setup the backend
+   - Pull the image from: `docker pull ghcr.io/pscldev/job-application/backend:latest`
+      - Set the required envs which you can find in the repository
+         - [backend](https://github.com/PsclDev/job-application-backend/blob/master/..EXAMPLE.env)
+   - Dont miss to bind the port to be available from outside
+      - default backend: 3010
+- Setup the frontend
+   - Clone the [frontend](https://github.com/PsclDev/job-application-frontend/)
+   - Build the project with: `docker build --build-arg API_BASE_URL=http://localhost:3010 -t job-app-frontend:latest .` 
+      - replace the arg with the url to the backend
+   - push the image to a registry of your like *(Optional)*
+   - Dont miss to bind the port to be available from outside
+      - default frontend: 80
 
 ## Development 
 ### Tech Stack
